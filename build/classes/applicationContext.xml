@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+ xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                    ">
+     
+    <!-- ==================================配置数据源==================================== -->                
+     
+    <!-- 装配数据源 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName">
+    		<value>com.mysql.jdbc.Driver</value>
+    	</property>
+    	<property name="url">
+    		<value>jdbc:mysql://localhost:3307/douban</value>
+    	</property>
+    	<property name="username">
+    		<value>root</value>
+    	</property>
+    	<property name="password">
+    		<value></value>
+    	</property>
+    	<property name="maxActive">
+    		<value>10</value>
+    	</property>
+    	<property name="initialSize">
+    		<value>2</value>
+    	</property>
+    </bean>
+    
+    <!-- ================================配置SessionFactory======================================= -->
+    
+    <!-- 装配sessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    	<property name="configLocation">
+    		<value>classpath:hibernate.cfg.xml</value>
+    	</property>
+    	<property name="dataSource">
+    		<ref bean="dataSource"/>
+    	</property>
+    	<property name="hibernateProperties">
+    		<props>
+    			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+    		</props>
+    	</property>
+    </bean>
+    
+    <!-- ===================================配置TransactionManager事务管理======================================= -->
+    
+    <!-- 声明事务管理transactionManager -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    	<property name="sessionFactory">
+    		<ref bean="sessionFactory"/>
+    	</property>
+    </bean>
+    
+    <!-- ==============================配置hibernate数据库操作模板HibernateTemplate================ -->
+    
+    <!-- 装配hibernateTemplate -->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+    	<property name="sessionFactory">
+    		<ref bean="sessionFactory"/>
+    	</property>
+    </bean>
+    
+	<!-- =============================配置DAO实现类=============================================== -->
+	
+	<bean id="userDao" class="com.douban.model.dao.impl.UserDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="labelDao" class="com.douban.model.dao.impl.LabelDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="collectDao" class="com.douban.model.dao.impl.CollectDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="reviewDao" class="com.douban.model.dao.impl.ReviewDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="adminDao" class="com.douban.model.dao.impl.AdminDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="friendDao" class="com.douban.model.dao.impl.FriendDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="bindingDao" class="com.douban.model.dao.impl.BindingDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="sessionDao" class="com.douban.model.dao.impl.SessionDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	
+	<!-- ==============================配置业务层Service============================== -->
+		
+	<bean id="userBiz" class="com.douban.model.biz.impl.UserBizImpl">
+		<property name="userDao">
+			<ref bean="userDao"/>
+		</property>
+	</bean>
+	<bean id="labelBiz" class="com.douban.model.biz.impl.LabelBizImpl">
+		<property name="labelDao">
+			<ref bean="labelDao"/>
+		</property>
+	</bean>
+	<bean id="collectBiz" class="com.douban.model.biz.impl.CollectBizImpl">
+		<property name="collectDao">
+			<ref bean="collectDao"/>
+		</property>
+	</bean>
+	<bean id="reviewBiz" class="com.douban.model.biz.impl.ReviewBizImpl">
+		<property name="reviewDao">
+			<ref bean="reviewDao"/>
+		</property>
+	</bean>
+	<bean id="adminBiz" class="com.douban.model.biz.impl.AdminBizImpl">
+		<property name="adminDao">
+			<ref bean="adminDao"/>
+		</property>
+	</bean>
+	<bean id="friendBiz" class="com.douban.model.biz.impl.FriendBizImpl">
+		<property name="friendDao">
+			<ref bean="friendDao"/>
+		</property>
+	</bean>
+	<bean id="bindingBiz" class="com.douban.model.biz.impl.BindingBizImpl">
+		<property name="bindingDao">
+			<ref bean="bindingDao"/>
+		</property>
+	</bean>
+	<bean id="sessionBiz" class="com.douban.model.biz.impl.SessionBizImpl">
+		<property name="sessionDao">
+			<ref bean="sessionDao"/>
+		</property>
+	</bean>
+	
+	<!-- ===============================配置控制器层Controller========================== -->
+	
+	<bean id="userController" class="com.douban.controller.rest.UserController">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+		<property name="sessionBiz">
+			<ref bean="sessionBiz"/>
+		</property>
+	</bean>
+	<bean id="labelController" class="com.douban.controller.rest.LabelController">
+		<property name="labelBiz">
+			<ref bean="labelBiz"/>
+		</property>
+	</bean>
+	<bean id="collectController" class="com.douban.controller.rest.CollectController">
+		<property name="collectBiz">
+			<ref bean="collectBiz"/>
+		</property>
+	</bean>
+	<bean id="reviewController" class="com.douban.controller.rest.ReviewController">
+		<property name="reviewBiz">
+			<ref bean="reviewBiz"/>
+		</property>
+	</bean>
+	<bean id="adminController" class="com.douban.controller.rest.AdminController">
+		<property name="adminBiz">
+			<ref bean="adminBiz"/>
+		</property>
+	</bean>
+	<bean id="friendController" class="com.douban.controller.rest.FriendController">
+		<property name="friendBiz">
+			<ref bean="friendBiz"/>
+		</property>
+	</bean>
+	<bean id="bindingController" class="com.douban.controller.rest.BindingController">
+		<property name="bindingBiz">
+			<ref bean="bindingBiz"/>
+		</property>
+	</bean>
+</beans>

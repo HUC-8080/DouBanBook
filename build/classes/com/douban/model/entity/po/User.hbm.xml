@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.douban.model.entity.po">
+	<class name="User" lazy="false">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="username"></property>
+		<property name="password"></property>
+		<property name="realname"></property>
+		<property name="sex"></property>
+		<property name="birth"></property>
+		<property name="hobby"></property>
+		<property name="email"></property>
+		<property name="telephone"></property>
+		<property name="isgag" type="java.lang.Boolean"></property>
+		<property name="regdate"></property>
+		<set name="friends" table="Friend" lazy="false" inverse="false">
+			<key column="userid" not-null="true"></key>
+			<many-to-many lazy="false" column="friendid" class="com.douban.model.entity.po.User"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

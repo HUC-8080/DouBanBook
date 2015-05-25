@@ -1,0 +1,59 @@
+h1{
+	font-size:25px;
+	font-weight:bold;
+	color:#494949;
+	line-height:1.1;
+}
+.subjectwrap{
+	width:100%;
+}
+.mainpic{
+	float:left;
+	text-align:center;
+	margin:3px 12px 0 0;
+}
+.bookinfo{
+	margin-top:10px;
+	float:left;
+	line-height:30px;;
+}
+.bookinfo span{
+	font-size:12px;
+}
+.pl{
+	color:#666;
+}
+.collection{
+	margin-top:10px;
+	width:100%;
+	float:left;
+	display:inline-block;
+}
+.collection form{
+	display:inline-block;
+}
+.collection form input{
+	width:50px;
+	height:30px;
+	background:#9C0;
+}
+.related-info{
+	float:left;
+	width:100%;
+}
+.related-info h2{
+	margin-top:24px;
+	margin-bottom:3px;
+}
+.comment-item{
+	margin-top:10px;
+}
+.publish-comment{
+	margin-top:20px;
+}
+.related-info span,.related-info .intro,.related-info .author{
+	font-size:12px;
+}
+.comment-list p{
+	font-size:12px;
+}

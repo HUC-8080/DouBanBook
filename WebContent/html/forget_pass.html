@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/DouBanBook/images/favicon.ico" />
+<link rel="stylesheet" href="/DouBanBook/css/index.css" />
+<link rel="stylesheet" href="/DouBanBook/css/book.css" />
+<script src="/DouBanBook/js/jquery.min.js"></script>
+<script src="/DouBanBook/js/common.js"></script>
+<script src="/DouBanBook/js/login.js"></script>
+<script src="/DouBanBook/js/forget_pass.js"></script>
+<title>DouBan图书推荐</title>
+</head>
+
+<body>
+	<div class="container">
+    	<div class="navigation">
+        	<ul class="nav">
+            </ul>
+            <ul class="nav-right" id="userinfo">
+            </ul>
+        </div>
+        <div class="navigation-content">
+        	<div class="nav-wrap">
+            	<div class="nav-primary">
+                	<a href="http://localhost/DouBanBook/html/index.html">
+                        <div class="nav-logo"> 
+                        </div>
+                    </a>
+                    <div class="nav-search">
+                    	<form method="get">
+                        	<fieldset>
+                            	<label for="inp-query" style="display:none;">书名、作者、ISBN</label>
+                                <div class="inp">
+                                	<input id="inp-query" name="search_text" size="22" maxlength="60" placeholder="书名、作者、ISBN" autocomplete="off" dir="ltr" />
+                                </div>
+                                <div class="inp-btn">
+                                	<input type="button" value="搜索" onclick="javascript:searchBooks();" />
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+        	<div class="article">
+                <h2>忘记密码</h2>
+                <form id="forget_pass" method="post">
+                	<table>
+                        <tr><td class="form_label"><span>用户名：</span></td><td><input type="text" id="username" name="username" /></td></tr>
+                        <tr><td><input type="button" id="phone_modify" value="手机修改" /></td>
+                        <td><input type="button" id="mail_modify" value="邮箱修改" /></td></tr>
+                    </table>
+                </form>
+            </div>
+            <div class="aside">
+            	<div class="ad-placeholder">
+                	<a href="#" title="">
+                    	<img src="http://localhost/DouBanBook/images/ad/82a5c5b6e716cfa.jpg" />
+                    </a>
+                </div>
+                <h2>
+                	<span>热门标签</span>
+                    <span class="link-more">
+                    	<a href="http://localhost/DouBanBook/html/label_list.html">所有热门标签››</a>
+                    </span>
+                </h2>
+                <ul class="hot-tags-col5">
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

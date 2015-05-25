@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/DouBanBook/images/favicon.ico" />
+<link rel="stylesheet" href="/DouBanBook/css/index.css" />
+<link rel="stylesheet" href="/DouBanBook/css/book.css" />
+<link rel="stylesheet" href="/DouBanBook/css/modify_pass.css" />
+<link rel="stylesheet" href="/DouBanBook/css/tcal.css" />
+<link rel="stylesheet" href="/DouBanBook/css/center.css"/>
+<script src="/DouBanBook/js/jquery.min.js"></script>
+<script src="/DouBanBook/js/common.js"></script>
+<script src="/DouBanBook/js/login.js"></script>
+<script src="/DouBanBook/js/tcal.js"></script>
+<title>系统消息</title>
+</head>
+
+<body>
+	<div class="container">
+    	<div class="navigation">
+        	<ul class="nav">
+            </ul>
+            <ul class="nav-right" id="userinfo">
+            </ul>
+        </div>
+        <div class="navigation-content">
+        	<div class="nav-wrap">
+            	<div class="nav-primary">
+                	<a href="http://book.douban.com">
+                        <div class="nav-logo"> 
+                        </div>
+                    </a>
+                    <div class="nav-search">
+                    	<form method="get">
+                        	<fieldset>
+                            	<label for="inp-query" style="display:none;">书名、作者、ISBN</label>
+                                <div class="inp">
+                                	<input id="inp-query" name="search_text" size="22" maxlength="60" placeholder="书名、作者、ISBN" autocomplete="off" dir="ltr" />
+                                </div>
+                                <div class="inp-btn">
+                                	<input type="button" value="搜索" onclick="javascript:searchBooks();" />
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+        	<div class="user-info">
+        		<ul class="user-nav">
+        			<li><a href="http://localhost/DouBanBook/html/mycollect.html">我的收藏</a></li>
+        			<li><a href="http://localhost/DouBanBook/html/mycommunity.html">我的圈子</a></li>
+        			<li><a href="http://localhost/DouBanBook/html/myfriend.html">我的好友</a></li>
+        			<li><a href="http://localhost/DouBanBook/html/userinfo.html">个人信息</a></li>
+        			<li><a href="http://localhost/DouBanBook/html/setting.html">安全设置</a></li>
+        			<li class="current"><a href="http://localhost/DouBanBook/html/sysinfo.html">系统消息</a></li>
+        		</ul>
+        	</div>
+        	<div class="modify-pass">
+            	<h2>系统消息</h2>
+                <form action="http://localhost/DouBanBook/user?op=userinfo" method="post">
+                	<table>
+                        <tr><td class="form_label"><span>用户名：</span></td><td><input type="text" name="username" /></td></tr>
+                        <tr><td class="form_label"><span>真实姓名：</span></td><td><input type="text" name="realname"/></td></tr>
+                        <tr><td class="form_label"><span>手机：</span></td><td><input type="text" name="telephone" /></td></tr>
+                        <tr><td class="form_label"><span>邮箱：</span></td><td><input type="text" name="email" /></td></tr>
+                        <tr><td class="form_label"><span>性别：</span></td><td><input type="radio" name="sex" value="man"/>男&nbsp;&nbsp;<input type="radio" name="sex" value="women" />女</td></tr>
+                        <tr><td class="form_label"><span>出生年月：</span></td><td><input type="text" name="birth"  class="tcal" /></td></tr>
+                        <tr><td class="form_label"><span>兴趣爱好：</span></td><td><input type="text" name="hobby"/></td></tr>
+                        <tr><td><input type="submit" value="提交" /></td>
+                        <td><input type="reset" value="重置" /></td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

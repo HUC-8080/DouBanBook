@@ -1,0 +1,76 @@
+/* CSS Document */
+.label{
+	width:630px;
+	height:100%;
+	float:left;
+}
+h1{
+	word-wrap:break-word;
+	display:block;
+	font-size:25px;
+	font-weight:bold;
+	color:#494949;
+	margin:0;
+	padding:0 0 15px 0;
+	line-height:1.1;
+	border-bottom:1px solid #ccc; 
+}
+.tag{
+	margin-top:20px;
+}
+.tag span{	
+	font-size:20px;
+}
+.tagList table{
+	text-align:left;
+	width:630px;
+	line-height:30px;
+}
+.tagList table tr td{
+	text-align:left;
+}
+.tagList table a,.tagList table a:link,.tagList table a:visited{
+	width:auto;
+	background:#f5f5f5;
+	color:#37A;
+	font-size:13px;
+	padding:2px 11px 0;
+	display:inline-block;
+	margin:0 3px 5px 0;
+	line-height:20px;
+}
+.tagList table a:hover{
+	background:#9b9a8f;
+}
+ul{
+	list-style: none;
+}
+ul.label-list{
+	margin-top:20px;
+	width:600px;;
+	margin-bottom:40px;
+}
+ul.label-list li{
+	margin-bottom:40px;
+	list-style: none;
+	display:inline-block;
+}
+ul.label-list li ul li a{
+	text-decoration: none;
+	background-color: #e5e5e5;
+}
+ul.label-list li ul li a:link,ul.label-list li ul li a:visited,ul.label-list li ul li a:focus{
+	color:#37a;
+}
+ul.label-list li span{
+	font-size:14px;
+}
+ul.label-list li ul{
+	list-style:none;
+	display:inline-block;
+}
+ul.label-list li ul li{
+	padding-right:5px;
+	list-style:none;
+	display:inline-block;
+}

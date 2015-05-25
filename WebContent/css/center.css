@@ -1,0 +1,30 @@
+.user-info{
+	width:100%;
+	height:35px;
+	background: #666;
+}
+ul.user-nav{
+	list-style-type: none;
+	display: inline;
+	float:left;
+}
+ul.user-nav li{
+	display: inline;
+	height: 35px;
+	float: left;
+}
+ul.user-nav li a{
+	display:inline-block;
+	padding:0 25px;
+	height:35px;
+	line-height:35px;
+	color:#FFF;
+	font-family:"\5FAE\8F6F\96C5\9ED1"; 
+	font-size:16px
+}
+ul.user-nav li a:hover{
+	background:#0095BB;
+}
+ul.user-nav li.current{
+	background: #0095BB;
+}

@@ -1,0 +1,60 @@
+/* CSS Document */
+.book-list{
+	margin-top:5px;
+}
+.book-item{
+	border-top:1px dashed #ddd;
+	padding:20px 0 10px;
+	display:block;
+	height:180px;
+}
+.bookpic{
+	float:left;
+}
+.book-info{
+	color:#666;
+	margin-left:100px;
+	padding-left: 100px;
+}
+.book-info h2{
+	border:0px;
+}
+.book-info span{
+	font-size:12px;
+	line-height: 30px;
+}
+ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+#setpage #info{
+	display: inline-block;
+}
+.current{
+	display:inline-block;
+	margin:10px;
+	background: green;
+	padding:0 2px 0 2px;
+	text-align: center;
+}
+#setpage{
+	font-size: 12px;
+}
+#setpage a{
+	display:inline-block;
+	margin:10px;
+	background-color: #DDDDDD;
+	padding:0 2px 0 2px;
+	text-align: center;
+}
+#setpage #info{
+	display: inline-block;
+	padding: 0 2px 0 2px;
+	text-align: center;
+	color:#666 ;
+	background-color: #DDDDDD;
+}
+#setpage a:hover{
+	background: yellow;
+}

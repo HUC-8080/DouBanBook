@@ -1,0 +1,14 @@
+/* CSS Document */
+.modify-pass{
+	margin-top:40px;
+	float:left;
+	display:block;
+	width:630px;
+}
+.modify-pass form{
+	font-size:13px;
+	line-height:40px;
+}
+.modify-pass form input{
+	border:#CCCCCC 1px solid;
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- 把它设置为开发模式，发布时要设置为false -->
+    <constant name="struts.devMode" value="false" />
+    <!-- 设置在class被修改时是否热加载，发布时要设置为false -->
+    <constant name="struts.convention.classes.reload" value="true"/>
+    <!-- 自动动态方法的调用，使用这个设置后可以这样调用：action!method -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 指定jsp文件所在的目录地址 -->
+    <constant name="struts.convention.result.path" value="/WEB-INF/content/" />
+    <!-- 使用struts-default默认的转换器，如果是rest的使用：rest-default，rest需要rest的jar插件 -->
+    <constant name="struts.convention.default.parent.package" value="rest-default"/>
+    <!-- 用于配置包名后缀。默认为action、actions、struts-->
+    <constant name="struts.convention.package.locators" value="controller" />
+    <!-- 用于配置类名后缀，默认为Action，设置后，Struts2只会去找这种后缀名的类做映射 -->
+    <constant name="struts.convention.action.suffix" value="Controller"/>
+    <!-- 设置即使没有@Action注释，依然创建Action映射。默认值是false。因为Convention-Plugin是约定优于配置的风格，
+        可以不通过注解根据预先的定义就能访问相应Action中的方法 -->
+    <constant name="struts.convention.action.mapAllMatches" value="true"/>
+    <!-- 自定义jsp文件命名的分隔符 -->
+    <constant name="struts.convention.action.name.separator" value="-" />
+    <!-- 国际化资源文件名称 -->
+    <constant name="struts.custom.i18n.resources" value="i18n" />
+    <!-- 是否自动加载国际化资源文件  -->
+    <constant name="struts.i18n.reload" value="true" />
+    <!-- 浏览器是否缓存静态内容 -->
+    <constant name="struts.serve.static.browserCache" value="false" />
+     <!-- 上传文件大小限制设置 -->
+    <constant name="struts.multipart.maxSize" value="-1" />
+    <!-- 主题，将值设置为simple，即不使用UI模板。这将不会生成额外的html标签 -->
+    <constant name="struts.ui.theme" value="simple" />
+    <!-- 编码格式 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+	    
+    <package name="controller" extends="rest-default">
+    	<!-- 图书列表控制器 -->
+    	<action name="books" class="com.douban.controller.rest.BooksController">
+    		<result name="show">/jsp/index.jsp</result>
+    	</action>
+    	<!-- 图书信息控制器 -->
+    	<action name="book" class="com.douban.controller.rest.BookController">
+    		<result name="index">/jsp/index.jsp</result>
+    	</action>
+    	<!-- 用户控制器 -->
+    	<action name="user" class="com.douban.controller.rest.UserController">
+    		<result name="show">/jsp/index.jsp</result>
+    		<result name="loginSuccess" type="redirect">/html/index.html?code=1008</result>
+    		<result name="loginFailed" type="redirect">/html/login.html</result>
+    		<result name="logoutSuccess" type="redirect">/html/index.html</result>
+    		<result name="registerSuccess" type="redirect">/html/login.html?code=${code}</result>
+    		<result name="registerFailed" type="redirect">/html/login.html?code=${code}#toregister</result>
+    		<result name="modifysuccess" type="redirect">/html/userinfo.html?code=${code}</result>
+    		<result name="modifyfailed" type="redirect">/html/userinfo.html?code=${code}</result>
+    		<result name="perfect_userinfo_success" type="redirect">/html/login.html?code=1018</result>
+    		<result name="perfect_userinfo_failed" type="redirect">/html/perfect_userinfo.html?code=1019&amp;username=${username};</result>
+    	</action>
+    	<!-- 图书标签控制器 -->
+    	<action name="label" class="com.douban.controller.rest.LabelController">
+    		<result name="index">/html/label_list.html</result>
+    	</action>
+    	<!-- 用户收藏控制器 -->
+    	<action name="collect" class="com.douban.controller.rest.CollectController">
+    		<result name="index">/html/label_list.html</result>
+    	</action>
+    	<!-- 图书评论控制器 -->
+    	<action name="review" class="com.douban.controller.rest.ReviewController">
+    		<result name="publishReviewSuccess" type="redirect">/html/book.html?id=${bookid}</result>
+    		<result name="index">/html/label_list.html</result>
+    	</action>
+    	<!-- 排行榜控制器 -->
+    	<action name="rank" class="com.douban.controller.rest.RankController">
+    		<result name="index">/html/label_list.html</result>
+    	</action>
+    	<!-- 管理员控制器 -->
+    	<action name="admin" class="com.douban.controller.rest.AdminController">
+    		<result name="index">/admin/index.html</result>
+    		<result name="login">/admin/login.html</result>
+    		<!-- <interceptor-ref name="mydefault"></interceptor-ref> -->
+    	</action>
+    	<!-- 豆瓣第三方登录控制器 -->
+    	<action name="douban" class="com.douban.controller.rest.DouBanController">
+    		<result name="doubanloginSuccess" type="redirect">/html/perfect_userinfo.html?username=${uname}</result>
+    	</action>
+    	<!-- 用户好友控制器 -->
+    	<action name="friend" class="com.douban.controller.rest.FriendController">
+    		<result name="index">/html/index.html</result>
+    	</action>
+    	<!-- 用户信息绑定控制器 -->
+    	<action name="binding" class="com.douban.controller.rest.BindingController">
+    		<result name="index">/html/index.html</result>
+    		<result name="phone_validate_code_success" type="redirect">/html/setting.html?code=${code}</result>
+    		<result name="phone_validate_code_wrong" type="redirect">/html/phone_activation.html?code=${code}&amp;telephone=${telephone}</result>
+    		<result name="mail_send_success" type="redirect">/html/mail_send_success.html?code=${code}&amp;email=${email}&amp;email_host=${email_host}</result>
+    		<result name="bindingEmailSuccess" type="redirect">/html/setting.html?code=${code}</result>
+    	</action>
+    </package>
+    <!-- Add packages here -->
+</struts>
