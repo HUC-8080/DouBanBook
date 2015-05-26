@@ -59,6 +59,8 @@
     		<result name="perfect_userinfo_failed" type="redirect">/html/perfect_userinfo.html?code=1019&amp;username=${username};</result>
     		<result name="modify_pass_success" type="redirect">/html/modify_pass.html?code=${code}</result>
     		<result name="modify_pass_failed" type="redirect">/html/modify_pass.html?code=${code}</result>
+    		<result name="setting_pass_success" type="redirect">/html/login.html?code=${code}</result>
+    		<result name="email_setting_pass" type="redirect">/html/setting_pass.html</result>
     	</action>
     	<!-- 图书标签控制器 -->
     	<action name="label" class="com.douban.controller.rest.LabelController">
@@ -79,8 +81,8 @@
     	</action>
     	<!-- 管理员控制器 -->
     	<action name="admin" class="com.douban.controller.rest.AdminController">
-    		<result name="index">/admin/index.html</result>
-    		<result name="login">/admin/login.html</result>
+    		<result name="adminLoginSuccess" type="redirect">/admin/index.html?code=${code}</result>
+    		<result name="adminLoginFailed" type="redirect">/admin/login.html?code=${code}</result>
     		<!-- <interceptor-ref name="mydefault"></interceptor-ref> -->
     	</action>
     	<!-- 豆瓣第三方登录控制器 -->
@@ -98,6 +100,14 @@
     		<result name="phone_validate_code_wrong" type="redirect">/html/phone_activation.html?code=${code}&amp;telephone=${telephone}</result>
     		<result name="mail_send_success" type="redirect">/html/mail_send_success.html?code=${code}&amp;email=${email}&amp;email_host=${email_host}</result>
     		<result name="bindingEmailSuccess" type="redirect">/html/setting.html?code=${code}</result>
+    		<result name="forget_pass_success" type="redirect">/html/setting_pass.html</result>
+    		<result name="forget_pass_valdatecode_error" type="redirect">/html/forget_pass.html?code=${code}&amp;telephone=${telephone}</result>
+    		<result name="forget_pass_telephone_error" type="redirect">html/forget_pass.html?code=${code}</result>
+    		<result name="forget_pass_username_error" type="redirect">/html/forget_pass.html?code=${code}</result>
+    		<result name="forget_pass_mail_error" type="redirect">/html/forget_pass.html?code=${code}</result>
+    	</action>
+    	<action name="community" class="com.douban.controller.rest.CommunityController">
+    		<result name="index"></result>
     	</action>
     </package>
     <!-- Add packages here -->

@@ -13,8 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.mail.MessagingException;
-
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -57,6 +55,8 @@ public class BindingController extends ActionSupport implements
 	private int code;
 	private String email_host;
 	private long userid;
+	private int mode;
+	private String username;
 	
 	private Session session;
 	private Logger logger;
@@ -156,6 +156,34 @@ public class BindingController extends ActionSupport implements
 	 */
 	public void setOp(String op) {
 		this.op = op;
+	}
+
+	/**
+	 * @return the mode
+	 */
+	public int getMode() {
+		return mode;
+	}
+
+	/**
+	 * @param mode the mode to set
+	 */
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	/**
@@ -264,6 +292,7 @@ public class BindingController extends ActionSupport implements
 		}else if(op.equals("phone_activation")){
 			this.session2 = ActionContext.getContext().getSession();
 			int validateCode = (int) this.session2.get("validateCode");
+			this.session2.remove("validateCode");
 			if(this.validatecode != validateCode){
 				this.code = 7009;
 				return new DefaultHttpHeaders("phone_validate_code_wrong");
@@ -279,21 +308,57 @@ public class BindingController extends ActionSupport implements
 			}
 		//-----------------------邮箱验证-------------------------
 		}else if(op.equals("mail_activation")){
-			try {
-				this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
-				this.user = this.userBiz.queryUserInfo(this.session.getUserid());
-				String email_activated = this.user.getId() + "#" + this.email ;
-				this.session2 = ActionContext.getContext().getSession();
-				this.session2.put("email_activated", email_activated);
-				MailValidator.mailActivationContent(this.user.getId(), this.user.getUsername(), email);
-				MailValidator.send(email, "绑定邮箱", "请点击下方链接以绑定邮箱<br/><a href='http://localhost/DouBanBook/html'></a>");
-				this.email = StringUtil.replaceSubStringWithEmail(email);
-				this.email_host = StringUtil.getMailHost(email);
-				this.code = 7011;
-				return new DefaultHttpHeaders("mail_send_success");
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
+			this.user = this.userBiz.queryUserInfo(this.session.getUserid());
+			String email_activated = this.user.getId() + "#" + this.email ;
+			this.session2 = ActionContext.getContext().getSession();
+			this.session2.put("email_activated", email_activated);
+			MailValidator.mailActivationContent(this.user.getId(), this.user.getUsername(), email);
+			this.email = StringUtil.replaceSubStringWithEmail(email);
+			this.email_host = StringUtil.getMailHost(email);
+			this.code = 7011;
+			return new DefaultHttpHeaders("mail_send_success");
+		//------------------------忘记密码-----------------------------
+		}else if(op.equals("forget_pass")){
+			//通过手机找回密码
+			if(this.mode == 0){
+				this.user = this.userBiz.queryInfo(username);
+				if(this.user != null){
+					this.binding = this.bindingBiz.findByUserId(this.user.getId());
+					if(this.binding.getTelephone().equals(this.telephone)){
+						this.session2 = ActionContext.getContext().getSession();
+						int validateCode = (int) this.session2.get("validateCode");
+						if(this.validatecode != validateCode){
+							this.code = 7012;
+							return new DefaultHttpHeaders("forget_pass_valdatecode_error");
+						}else{
+							this.code = 7013;
+							return new DefaultHttpHeaders("forget_pass_success");
+						}
+					}else{
+						this.code = 7014;
+						return new DefaultHttpHeaders("forget_pass_telephone_error");
+					}
+				}else{
+					this.code = 7015;
+					return new DefaultHttpHeaders("forget_pass_username_error");
+				}
+				
+			//通过邮箱找回密码
+			}else if(this.mode == 1){
+				this.user = this.userBiz.queryInfo(username);
+				if(this.user != null){
+					if(this.email.equals(this.user.getEmail())){
+						MailValidator.mailModifyPassContent(this.user.getId(), this.username, this.email);
+						return new DefaultHttpHeaders("forget_pass_success");
+					}else{
+						this.code = 7016;
+						return new DefaultHttpHeaders("forget_pass_mail_error");
+					}
+				}else{
+					this.code = 7015;
+					return new DefaultHttpHeaders("forget_pass_username_error");
+				}
 			}
 		}
 		return null;

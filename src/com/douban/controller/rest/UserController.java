@@ -55,6 +55,7 @@ public class UserController extends ActionSupport implements
 	private String hobby;
 	private String birth;
 	private int validatecode;
+	private int mode;
 	
 	private String repassword;
 	private String newpassword;
@@ -161,6 +162,20 @@ public class UserController extends ActionSupport implements
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the mode
+	 */
+	public int getMode() {
+		return mode;
+	}
+
+	/**
+	 * @param mode the mode to set
+	 */
+	public void setMode(int mode) {
+		this.mode = mode;
 	}
 
 	/**
@@ -488,9 +503,16 @@ public class UserController extends ActionSupport implements
 			this.user.setTelephone(telephone);
 			this.user.setEmail(email);
 			this.result = new UserResult("获取邮箱和手机成功", 1031, this.user, null);
+		//--------------------------安全邮箱设置密码--------------------------
+		}else if(op.equals("setting_pass_email")){
+			this.user = this.userBiz.queryUserInfo(userid);
+			if(this.user != null && this.email.equals(this.user.getEmail())){
+				return new DefaultHttpHeaders("email_setting_pass");
+			}else{
+				return new DefaultHttpHeaders();
+			}
 		}
-		return new DefaultHttpHeaders("");
-		
+		return null;
 	}
 	
 	/*
@@ -625,8 +647,17 @@ public class UserController extends ActionSupport implements
 				this.code = 1026;
 				return new DefaultHttpHeaders("modify_pass_failed");
 			}
-			
+		//---------------------------忘记密码设置密码------------------------
+		}else if(op.equals("setting_pass")){
+			this.user = this.userBiz.queryInfo(username);
+			this.user.setUsername(username);
+			this.user.setPassword(password);
+			if(this.userBiz.modifyInfo(this.user)){
+				this.code = 1040;
+				return new DefaultHttpHeaders("setting_pass_success");
+			}
 		}
+		
 		return null;
 	}
 }

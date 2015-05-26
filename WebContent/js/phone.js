@@ -1,8 +1,10 @@
 var search = decodeURIComponent(location.search.substring(1));
 var searchArr = search.split("&");
-if(searchArr == ""){
-	alert("非法操作！！现在跳转至首页！！");
-	location.href = "http://localhost/DouBanBook/html/index.html";
+var url = decodeURIComponent(location.href);
+var urlArr = url.split("/");
+if(searchArr == "" && urlArr[urlArr.length-1] != "forget_pass.html"){
+//	alert("非法操作！！！！！！现在跳转至首页！！！！！！！！！！！！！！！");
+//	location.href = "http://localhost/DouBanBook/html/index.html";
 }
 for(var i=0;i<searchArr.length;i++){
 	var key = searchArr[i].split("=")[0];
@@ -49,7 +51,11 @@ $(function(){
 		url:"http://localhost/DouBanBook/user.json?op=isLogin",
 		dataType:"json",
 		success:function(data){
-			$("input[name='username']").val(data['user']['username']);
+			if(data['code'] == 1000){
+				if($("input[name='username']") != null){
+					$("input[name='username']").val(data['user']['username']);
+				}
+			}
 		}
 	});
 });

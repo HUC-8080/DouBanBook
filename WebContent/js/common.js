@@ -89,7 +89,11 @@ function getUserName(){
 		url:"http://localhost/DouBanBook/user.json?op=isLogin",
 		dataType:"json",
 		success:function(data){
-			$("input[name='username']").val(data['user']['username']);
+			if(data['code'] == 1000){
+				if($("input[name='username']") != null){
+					$("input[name='username']").val(data['user']['username']);
+				}
+			}
 		}
 	});
 }

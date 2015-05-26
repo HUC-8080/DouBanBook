@@ -136,6 +136,30 @@
 			<ref bean="transactionManager"/>
 		</property>
 	</bean>
+	<bean id="communityDao" class="com.douban.model.dao.impl.CommunityDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="adminSessionDao" class="com.douban.model.dao.impl.AdminSessionDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="adminLogDao" class="com.douban.model.dao.impl.AdminLogDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
 	
 	<!-- ==============================配置业务层Service============================== -->
 		
@@ -179,6 +203,21 @@
 			<ref bean="sessionDao"/>
 		</property>
 	</bean>
+	<bean id="communityBiz" class="com.douban.model.biz.impl.CommunityBizImpl">
+		<property name="communityDao">
+			<ref bean="communityDao"/>
+		</property>
+	</bean>
+	<bean id="adminSessionBiz" class="com.douban.model.biz.impl.AdminSessionBizImpl">
+		<property name="adminSessionDao">
+			<ref bean="adminSessionDao"/>
+		</property>
+	</bean>
+	<bean id="adminLogBiz" class="com.douban.model.biz.impl.AdminLogBizImpl">
+		<property name="adminLogDao">
+			<ref bean="adminLogDao"/>
+		</property>
+	</bean>
 	
 	<!-- ===============================配置控制器层Controller========================== -->
 	
@@ -209,6 +248,12 @@
 		<property name="adminBiz">
 			<ref bean="adminBiz"/>
 		</property>
+		<property name="adminSessionBiz">
+			<ref bean="adminSessionBiz"/>
+		</property>
+		<property name="adminLogBiz">
+			<ref bean="adminLogBiz"/>
+		</property>
 	</bean>
 	<bean id="friendController" class="com.douban.controller.rest.FriendController">
 		<property name="friendBiz">
@@ -218,6 +263,11 @@
 	<bean id="bindingController" class="com.douban.controller.rest.BindingController">
 		<property name="bindingBiz">
 			<ref bean="bindingBiz"/>
+		</property>
+	</bean>
+	<bean id="communityController" class="com.douban.controller.rest.CommunityController">
+		<property name="communityBiz">
+			<ref bean="communityBiz"/>
 		</property>
 	</bean>
 </beans>

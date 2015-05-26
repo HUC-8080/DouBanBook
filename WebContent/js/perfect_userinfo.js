@@ -50,7 +50,7 @@ function checkUserInfo(){
 		return false;
 	}
 	//验证手机号
-	var telephone = $("input[name='tel']").val();
+	var telephone = $("input[name='telephone']").val();
 	if(telephone.length == 0 || telephone == null){
 		alert("手机号不能为空！！");
 		return false;

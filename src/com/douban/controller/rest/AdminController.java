@@ -12,15 +12,22 @@ package com.douban.controller.rest;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.servlet.http.Cookie;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
+import com.douban.common.util.CookieUtil;
+import com.douban.common.util.SessionUtil;
 import com.douban.model.biz.impl.AdminBizImpl;
 import com.douban.model.biz.impl.AdminLogBizImpl;
+import com.douban.model.biz.impl.AdminSessionBizImpl;
 import com.douban.model.entity.po.Admin;
 import com.douban.model.entity.po.AdminLog;
+import com.douban.model.entity.po.AdminSession;
 import com.douban.model.entity.result.AdminResult;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -30,18 +37,22 @@ import com.opensymphony.xwork2.ModelDriven;
  *
  */
 @SuppressWarnings("serial")
-@Results(@Result(name="success",type="redirectAction",params={"actionName","admin"}))
+@Results(@Result(name="success",type="redirectAction",params={"actionName","admin/validate"}))
 public class AdminController extends ActionSupport implements
 		ModelDriven<Object> {
 	
 	private String op;
 	private String username;
 	private String password;
+	private int code;
+	
 	private Admin admin;
 	private AdminLog adminLog;
 	private AdminResult result;
 	private AdminBizImpl adminBiz;
+	private AdminSessionBizImpl adminSessionBiz;
 	private AdminLogBizImpl adminLogBiz;
+	private AdminSession session;
 
 	/**
 	 * <p>Project: DouBanBook</p>
@@ -71,6 +82,20 @@ public class AdminController extends ActionSupport implements
 	 */
 	public void setAdminLogBiz(AdminLogBizImpl adminLogBiz) {
 		this.adminLogBiz = adminLogBiz;
+	}
+
+	/**
+	 * @return the adminSessionBiz
+	 */
+	public AdminSessionBizImpl getAdminSessionBiz() {
+		return adminSessionBiz;
+	}
+
+	/**
+	 * @param adminSessionBiz the adminSessionBiz to set
+	 */
+	public void setAdminSessionBiz(AdminSessionBizImpl adminSessionBiz) {
+		this.adminSessionBiz = adminSessionBiz;
 	}
 
 	/* (non-Javadoc)
@@ -124,18 +149,31 @@ public class AdminController extends ActionSupport implements
 		this.password = password;
 	}
 
+	/**
+	 * @return the code
+	 */
+	public int getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(int code) {
+		this.code = code;
+	}
+
 	public HttpHeaders index(){
-		if(op.equals("login")){
-			this.admin = this.adminBiz.login(username, password);
-			if(this.admin != null){
-				this.result = new AdminResult("登录成功", 6000, this.admin);	//code=6000 登录失败
+		//-----------------------判断管理员是否已经登陆---------------------------
+		if(op.equals("isLogin")){
+			this.session = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			if(this.session == null){
+				this.result = new AdminResult("此用户尚未登陆", 6003, null);
+			}else if(this.adminSessionBiz.find(this.session) != null){
+				this.result = new AdminResult("此用户已经登陆", 6002, null);
 			}else{
-				this.result = new AdminResult("登录失败", 6001, null);
+				this.result = new AdminResult("此用户尚未登陆", 6003, null);
 			}
-		}else if(op.equals("isLogin")){
-			
-		}else if(op.equals("deleteUser")){
-			
 		}
 		return new DefaultHttpHeaders();
 	}
@@ -145,21 +183,36 @@ public class AdminController extends ActionSupport implements
 		if(op.equals("login")){
 			this.admin = this.adminBiz.login(username, password);
 			if(this.admin != null){
+				
+				//----------------------管理员日志------------------------
 				this.adminLog = new AdminLog();
 				this.adminLog.setAdminid(this.admin.getId());
 				this.adminLog.setDate(new Date().toString());
 				this.adminLog.setMsg("登录");
 				this.adminLogBiz.addLog(this.adminLog);
+				//----------------------管理员cookie----------------------
+				long sessionid = SessionUtil.getSessionId();
+				//第一步：写入cookie
+				Cookie cookie = CookieUtil.addAdminCookie(this.admin.getId(), sessionid);
+				ServletActionContext.getResponse().addCookie(cookie);
+				//第二部：写入数据库
+				this.session = new AdminSession();
+				this.session.setAdminid(this.admin.getId());
+				this.session.setSessionid(sessionid);
+				this.adminSessionBiz.add(session);
+				
 				this.result = new AdminResult("登录成功", 6000, this.admin);	//code=6000 登录失败
+				this.code = 6000;
 				logger.info(this.result.toString());
-				return new DefaultHttpHeaders("index");
+				return new DefaultHttpHeaders("adminLoginSuccess");
 			}else{
 				this.result = new AdminResult("登录失败", 6001, null);
 				logger.info(this.result.toString());
-				return new DefaultHttpHeaders("login");
+				this.code = 6001;
+				return new DefaultHttpHeaders("adminLoginFailed");
 			}
 		}
-		return new DefaultHttpHeaders();
+		return new DefaultHttpHeaders("eeee");
 		
 	}
 }

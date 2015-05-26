@@ -121,7 +121,17 @@ public class MailValidator {
 		}
 	}
 	
+	public static void mailModifyPassContent(long userid, String username, String email){
+		String url = "http://localhost/DouBanBook/user?op=setting_pass_email&userid="+userid+"&email="+email;
+		String content = "欢迎你，"+username+":<br/>&nbsp;&nbsp;&nbsp;感谢您使用DouBanBook平台！<br/>&nbsp;&nbsp;&nbsp;请点击一下链接，找回你的密码！！<br/>&nbsp;&nbsp;&nbsp;<a href='"+url+"'><span>"+url+"</span><a>";
+		try {
+			MailValidator.send(email, "找回密码", content);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
-		MailValidator.mailActivationContent(6, "HUC-8080", "13920532105@sina.cn");
+		MailValidator.mailModifyPassContent(6, "HUC-8080", "13920532105@sina.cn");
 	}
 }

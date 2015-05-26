@@ -46,32 +46,19 @@
         <div class="content">
         	<div class="article">
                 <h2>忘记密码</h2>
-                <form id="forget_pass" method="post" action="http://localhost/DouBanBook/user?op=forget_pass">
+                <form method="post" action="http://localhost/DouBanBook/binding?op=forget_pass">
                 	<table>
                         <tr><td class="form_label"><span>用户名：</span></td><td><input type="text" id="username" name="username" /></td></tr>
-                        <tr><td><input type="radio" id="forget_pass" class="pass_telephone" name="mode"/>通过手机找回</td></tr>
-                        <tr><td class="form_label"><span>手机：</span></td><td><input type="text" name="telephone" /><input type="button" id="phone_activation" value="免费获取验证码"/></td></tr>
+                        <tr><td><input type="radio" id="forget_pass" class="pass_telephone" name="mode" value="0"/>通过手机找回</td></tr>
+                        <tr class="selectTelephone"><td class="form_label"><span>手机：</span></td><td><input type="text" name="telephone" /><input type="button" id="phone_activation" value="免费获取验证码"/></td></tr>
                         <tr class="validatecode" style="display: none;"><td class="form_label"><span>验证码：</span></td><td><input type="text" name="validatecode" /></td></tr>
-                        <tr><td><input type="radio" id="forget_pass" class="pass_mail" name="mode" />通过邮箱找回</td></tr>
-                        <tr><td class="form_label"><span>邮箱：</span></td><td><input type="text" name="email" /></td></tr>
+                        <tr><td><input type="radio" id="forget_pass" class="pass_mail" name="mode" value="1" />通过邮箱找回</td></tr>
+                        <tr class="selectEmail"><td class="form_label"><span>邮箱：</span></td><td><input type="text" name="email" /></td></tr>
                     </table>
+                    <input type="submit" value="提交"/>
+                    <input type="reset" value="重置"/>
                 </form>
                 <script src="/DouBanBook/js/phone.js"></script>
-            </div>
-            <div class="aside">
-            	<div class="ad-placeholder">
-                	<a href="#" title="">
-                    	<img src="http://localhost/DouBanBook/images/ad/82a5c5b6e716cfa.jpg" />
-                    </a>
-                </div>
-                <h2>
-                	<span>热门标签</span>
-                    <span class="link-more">
-                    	<a href="http://localhost/DouBanBook/html/label_list.html">所有热门标签››</a>
-                    </span>
-                </h2>
-                <ul class="hot-tags-col5">
-                </ul>
             </div>
         </div>
     </div>

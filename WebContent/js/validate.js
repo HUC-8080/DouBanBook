@@ -25,6 +25,8 @@ if(search != null){
 			alert("此邮箱已经被注册");
 		}else if(key == "code" && value == 1003){
 			alert("密码错误");
+		}else if(key == "code" && value == 1040){
+			alert("设置密码成功！！请您登陆！！");
 		}
 	}
 }

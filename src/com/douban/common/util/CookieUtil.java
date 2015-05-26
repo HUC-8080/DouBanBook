@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.douban.model.entity.po.AdminSession;
 import com.douban.model.entity.po.Session;
 
 /**
@@ -23,6 +24,7 @@ import com.douban.model.entity.po.Session;
 public class CookieUtil {
 
 	private static final String USER_COOKIE = "user.cookie";
+	private static final String ADMIN_COOKIE = "admin.cookie";
 	
 	
 	/**
@@ -61,6 +63,23 @@ public class CookieUtil {
 	/**
 	 * <p>Project: DouBanBook</p>
 	 * <p>Package: com.douban.common.util</p>
+	 * <p>Title: addAdminCookie</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return Cookie</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 26, 2015 8:55:04 PM
+	 * @version 
+	 */
+	public static Cookie addAdminCookie(long adminid, long sessionid){
+		Cookie cookie = new Cookie(ADMIN_COOKIE, adminid+","+sessionid);
+		return cookie;
+	}
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.common.util</p>
 	 * <p>Title: getCookie</p>
 	 * <p>Description: </p>
 	 * <p>@param </p>
@@ -87,6 +106,68 @@ public class CookieUtil {
 						session.setUserid(userid);
 						return session;
 					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.common.util</p>
+	 * <p>Title: getAdminCookie</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return AdminSession</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 26, 2015 9:12:24 PM
+	 * @version 
+	 */
+	public static AdminSession getAdminCookie(HttpServletRequest request){
+		Cookie[] cookies = request.getCookies();
+		System.out.println("cookies:"+cookies);
+		if(cookies != null){
+			for (Cookie cookie : cookies) {
+				System.out.println("cookie:"+cookie.getName());
+				if(CookieUtil.ADMIN_COOKIE.equals(cookie.getName())){
+					String value = cookie.getValue();
+					if(StringUtils.isNotBlank(value)){
+						String[] split = value.split(",");
+						long adminid = Long.parseLong(split[0]);
+						long sessionid = Long.parseLong(split[1]);
+						AdminSession session = new AdminSession();
+						session.setSessionid(sessionid);
+						session.setAdminid(adminid);
+						return session;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.common.util</p>
+	 * <p>Title: deleteAdminCookie</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return Cookie</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 26, 2015 9:12:20 PM
+	 * @version 
+	 */
+	public static Cookie deleteAdminCookie(HttpServletRequest request){
+		Cookie[] cookies = request.getCookies();
+		System.out.println(cookies);
+		if(cookies != null){
+			for(Cookie cookie : cookies){
+				if(CookieUtil.ADMIN_COOKIE.equals(cookie.getName())){
+					cookie.setValue("");
+					cookie.setMaxAge(0);
+					return cookie;
 				}
 			}
 		}
