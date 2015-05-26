@@ -49,7 +49,7 @@
     	<action name="user" class="com.douban.controller.rest.UserController">
     		<result name="show">/jsp/index.jsp</result>
     		<result name="loginSuccess" type="redirect">/html/index.html?code=1008</result>
-    		<result name="loginFailed" type="redirect">/html/login.html</result>
+    		<result name="loginFailed" type="redirect">/html/login.html?code=1003</result>
     		<result name="logoutSuccess" type="redirect">/html/index.html</result>
     		<result name="registerSuccess" type="redirect">/html/login.html?code=${code}</result>
     		<result name="registerFailed" type="redirect">/html/login.html?code=${code}#toregister</result>
@@ -57,6 +57,8 @@
     		<result name="modifyfailed" type="redirect">/html/userinfo.html?code=${code}</result>
     		<result name="perfect_userinfo_success" type="redirect">/html/login.html?code=1018</result>
     		<result name="perfect_userinfo_failed" type="redirect">/html/perfect_userinfo.html?code=1019&amp;username=${username};</result>
+    		<result name="modify_pass_success" type="redirect">/html/modify_pass.html?code=${code}</result>
+    		<result name="modify_pass_failed" type="redirect">/html/modify_pass.html?code=${code}</result>
     	</action>
     	<!-- 图书标签控制器 -->
     	<action name="label" class="com.douban.controller.rest.LabelController">

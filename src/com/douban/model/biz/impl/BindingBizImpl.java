@@ -20,6 +20,7 @@ import com.douban.model.entity.po.Binding;
 public class BindingBizImpl implements IBindingBiz {
 
 	private BindingDaoImpl bindingDao;
+	private Binding binding;
 	private int affectedRows = 0;
 	
 	/**
@@ -60,8 +61,10 @@ public class BindingBizImpl implements IBindingBiz {
 	@Override
 	public boolean addBindTel(Binding binding) {
 		// TODO Auto-generated method stub
+		this.binding = this.bindingDao.selectBinding(binding.getUserid());
+		this.binding.setTelephone(binding.getTelephone());
 		if(this.bindingDao.selectBinding(binding.getUserid()) != null){
-			return this.modifyBindTel(binding);
+			return this.modifyBindTel(this.binding);
 		}else{
 			this.affectedRows = this.bindingDao.insertBindTel(binding);
 			if(this.affectedRows > 0){
@@ -77,8 +80,10 @@ public class BindingBizImpl implements IBindingBiz {
 	@Override
 	public boolean addBindEmail(Binding binding) {
 		// TODO Auto-generated method stub
+		this.binding = this.bindingDao.selectBinding(binding.getUserid());
+		this.binding.setEmail(binding.getEmail());
 		if(this.bindingDao.selectBinding(binding.getUserid()) != null){
-			return this.modifyBindEmail(binding);
+			return this.modifyBindEmail(this.binding);
 		}else{
 			this.affectedRows = this.bindingDao.insertBindEmail(binding);
 			if(this.affectedRows > 0){

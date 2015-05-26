@@ -56,6 +56,9 @@ public class UserController extends ActionSupport implements
 	private String birth;
 	private int validatecode;
 	
+	private String repassword;
+	private String newpassword;
+	
 	//具体操作
 	private String op;
 	
@@ -172,6 +175,34 @@ public class UserController extends ActionSupport implements
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the repassword
+	 */
+	public String getRepassword() {
+		return repassword;
+	}
+
+	/**
+	 * @param repassword the repassword to set
+	 */
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
+	}
+
+	/**
+	 * @return the newpassword
+	 */
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	/**
+	 * @param newpassword the newpassword to set
+	 */
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
 	}
 
 	/**
@@ -566,6 +597,7 @@ public class UserController extends ActionSupport implements
 				result = new UserResult("修改用户信息失败", 1017, null, null);
 				return new DefaultHttpHeaders("modifyfailed");
 			}
+		//---------------------------完善用户信息-------------------------
 		}else if(op.equals("perfect_userinfo")){
 			this.user = new User();
 			this.user.setUsername(username);
@@ -578,6 +610,20 @@ public class UserController extends ActionSupport implements
 				return new DefaultHttpHeaders("perfect_userinfo_success");	//code == 1018
 			}else{
 				return new DefaultHttpHeaders("perfect_userinfo_failed");   //code == 1019
+			}
+		//---------------------------完善用户信息-------------------------	
+		}else if(op.equals("modify_pass")){
+			this.user = this.userBiz.queryInfo(username);
+			if(this.user.getPassword().equals(repassword)){
+				this.user.setPassword(newpassword);
+				if(this.userBiz.modifyInfo(user)){
+					this.code = 1027;
+					return new DefaultHttpHeaders("modify_pass_success");
+				}
+				return new DefaultHttpHeaders();
+			}else{
+				this.code = 1026;
+				return new DefaultHttpHeaders("modify_pass_failed");
 			}
 			
 		}

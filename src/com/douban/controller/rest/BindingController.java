@@ -228,6 +228,7 @@ public class BindingController extends ActionSupport implements
 			}else{
 				this.result = new BindingResult("绑定邮箱失败", 7005, this.binding);
 			}
+		//------------------------邮箱激活------------------------------
 		}else if(op.equals("email_activated")){
 			this.session2 = ActionContext.getContext().getSession();
 			String email_activated = (String) this.session2.get("email_activated");

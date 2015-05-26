@@ -23,6 +23,8 @@ if(search != null){
 			alert("此手机已经被注册");
 		}else if(key == "code" && value == 1024){
 			alert("此邮箱已经被注册");
+		}else if(key == "code" && value == 1003){
+			alert("密码错误");
 		}
 	}
 }

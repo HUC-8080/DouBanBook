@@ -88,4 +88,12 @@ $(function(){
 		var email = $("input[name='email']").val();
 		location.href = "http://localhost/DouBanBook/html/mail_activation.html?email="+email;
 	});
+	$(".modifyTelephone").click(function(){
+		var telephone = $("input[name='telephone']").val();
+		location.href = "http://localhost/DouBanBook/html/phone_activation.html?telephone="+telephone;
+	});
+	$(".modifyEmail").click(function(){
+		var email = $("input[name='email']").val();
+		location.href = "http://localhost/DouBanBook/html/mail_activation.html?email="+email;
+	});
 });

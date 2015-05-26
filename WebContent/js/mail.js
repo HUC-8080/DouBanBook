@@ -22,8 +22,6 @@ $(function(){
 				}
 			}
 			if(key == "email_host" && value != null){
-				alert(value);
-//				$("modify-pass a").removeAttr("href");
 				$(".enterEmail").attr("href","http://"+value);
 			}
 		}
