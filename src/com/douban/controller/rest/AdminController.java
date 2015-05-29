@@ -9,6 +9,7 @@
  */
 package com.douban.controller.rest;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -37,7 +38,7 @@ import com.opensymphony.xwork2.ModelDriven;
  *
  */
 @SuppressWarnings("serial")
-@Results(@Result(name="success",type="redirectAction",params={"actionName","admin/validate"}))
+@Results(@Result(name="success",type="redirectAction",params={"actionName","administrator"}))
 public class AdminController extends ActionSupport implements
 		ModelDriven<Object> {
 	
@@ -186,8 +187,12 @@ public class AdminController extends ActionSupport implements
 				
 				//----------------------管理员日志------------------------
 				this.adminLog = new AdminLog();
-				this.adminLog.setAdminid(this.admin.getId());
-				this.adminLog.setDate(new Date().toString());
+				this.adminLog.setAdminId(this.admin.getId());
+				
+				Date date = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				this.adminLog.setDate(format.format(date));
+
 				this.adminLog.setMsg("登录");
 				this.adminLogBiz.addLog(this.adminLog);
 				//----------------------管理员cookie----------------------
@@ -201,6 +206,7 @@ public class AdminController extends ActionSupport implements
 				this.session.setSessionid(sessionid);
 				this.adminSessionBiz.add(session);
 				
+				this.admin.setPassword("");
 				this.result = new AdminResult("登录成功", 6000, this.admin);	//code=6000 登录失败
 				this.code = 6000;
 				logger.info(this.result.toString());

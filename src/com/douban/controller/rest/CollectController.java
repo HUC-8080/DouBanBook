@@ -170,7 +170,7 @@ public class CollectController extends ActionSupport implements
 		}else if(op.equals("collectList")){
 			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
 			this.collects = this.collectBiz.findAll(this.session.getUserid());
-			if(this.collects != null || this.collects.size() != 0){
+			if(this.collects != null && this.collects.size() != 0){
 				result = new CollectResult("获取用户收藏列表成功", 3006, null, collects);
 			}else{
 				result = new CollectResult("此用户还没有收藏任何书籍", 3007, null, null);

@@ -9,15 +9,23 @@
  */
 package com.douban.controller.rest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
+import com.douban.common.util.CookieUtil;
 import com.douban.model.biz.impl.CommunityBizImpl;
+import com.douban.model.biz.impl.CommunityUserBizImpl;
+import com.douban.model.biz.impl.UserBizImpl;
 import com.douban.model.entity.po.Community;
+import com.douban.model.entity.po.CommunityUser;
+import com.douban.model.entity.po.Session;
 import com.douban.model.entity.result.CommunityResult;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -34,9 +42,18 @@ public class CommunityController extends ActionSupport implements
 	private CommunityResult result;
 	private List<Community> communities;
 	private Community community;
+	private CommunityUser communityUser;
 	private String op;
+	private long communityid;
+	private long userid;
+	private String username;
+	private String name;
+	private String description;
 	
 	private CommunityBizImpl communityBiz;
+	private CommunityUserBizImpl communityUserBiz;
+	private UserBizImpl userBiz;
+	private Session session;
 
 	/**
 	 * <p>Project: DouBanBook</p>
@@ -59,6 +76,20 @@ public class CommunityController extends ActionSupport implements
 	 */
 	public void setCommunityBiz(CommunityBizImpl communityBiz) {
 		this.communityBiz = communityBiz;
+	}
+
+	/**
+	 * @param communityUserBiz the communityUserBiz to set
+	 */
+	public void setCommunityUserBiz(CommunityUserBizImpl communityUserBiz) {
+		this.communityUserBiz = communityUserBiz;
+	}
+
+	/**
+	 * @param userBiz the userBiz to set
+	 */
+	public void setUserBiz(UserBizImpl userBiz) {
+		this.userBiz = userBiz;
 	}
 
 	/* (non-Javadoc)
@@ -84,12 +115,130 @@ public class CommunityController extends ActionSupport implements
 		this.op = op;
 	}
 	
+	/**
+	 * @return the id
+	 */
+	public long getCommunityid() {
+		return communityid;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setCommunityid(long communityid) {
+		this.communityid = communityid;
+	}
+
+	/**
+	 * @return the userid
+	 */
+	public long getUserid() {
+		return userid;
+	}
+
+	/**
+	 * @param userid the userid to set
+	 */
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public HttpHeaders index(){
+		//-------------------获取圈子列表----------------------------
 		if(op.equals("communityList")){
 			this.communities = this.communityBiz.findAll();
 			this.result = new CommunityResult("获取圈子列表成功", 8000, null, this.communities);
+		//-------------------加入圈子--------------------------------
+		}else if(op.equals("joinCommunity")){
+			this.communityUser = new CommunityUser();
+			this.communityUser.setCommunityid(this.communityid);
+			this.communityUser.setUserid(userid);
+			if(this.communityUserBiz.add(communityUser)){
+				this.result = new CommunityResult("加入圈子成功", 8001, null, null);
+			}
+		//-------------------圈子审核--------------------------------
+		}else if(op.equals("check")){
+			this.community = this.communityBiz.findById(communityid);
+			this.community.setVerify(true);
+			this.communityBiz.check(community);
+			this.result = new CommunityResult("圈子审核成功", 8090, null, null);
+		//-------------------判断用户是否加入了这个圈子--------------
+		}else if(op.equals("userIsJoinThisCommunity")){
+			this.communityUser = new CommunityUser();
+			this.communityUser.setCommunityid(communityid);
+			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
+			this.communityUser.setUserid(this.session.getUserid());
+			if(this.communityUserBiz.userIsJoinedThisCommunity(communityUser)){
+				this.result = new CommunityResult("用户已经加入这个圈子", 8002, null, null);
+			}else{
+				this.result = new CommunityResult("用户尚未加入这个圈子", 8003, null, null);
+			}
+		//---------------------这个圈子名称是否已经被使用了----------
+		}else if(op.equals("communityNameIsUsed")){
+			if(this.communityBiz.communitynameIsUsed(name)){
+				this.result = new CommunityResult("这个圈子名称尚未被使用", 8004, null, null);
+			}else{
+				this.result = new CommunityResult("这个圈子名称已经被使用", 8005, null, null);
+			}
 		}
 		return new DefaultHttpHeaders();
 	}
 
+	public HttpHeaders create(){
+		//-------------------创建圈子--------------------------------
+		if(op.equals("createcommunity")){
+			this.community = new Community();
+			this.community.setName(name);
+			this.community.setDescription(description);
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.community.setDate(format.format(date));
+			this.community.setUser(this.userBiz.queryInfo(username));
+			this.communityBiz.add(community);
+			return new DefaultHttpHeaders("createCommunitySuccess");
+		}
+		return new DefaultHttpHeaders(); 
+	}
 }

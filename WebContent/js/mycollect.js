@@ -7,13 +7,18 @@ function getCollectList(){
 		success:function(data){
 			var bookids = "";
 			var collectids = "";
-			for(var i=0;i<data['collects'].length;i++){
-				collectids += data['collects'][i]['id'] + ",";
-				bookids += data['collects'][i]['bookid'] + ","; 
+			if(data['code'] == 3006){
+				for(var i=0;i<data['collects'].length;i++){
+					collectids += data['collects'][i]['id'] + ",";
+					bookids += data['collects'][i]['bookid'] + ","; 
+				}
+				collectids = collectids.substring(0, collectids.length-1);
+				bookids = bookids.substring(0, bookids.length-1);
+				getCollectBook(bookids,collectids);
+			}else{
+				$("#collects").html("您还未收藏任何图书！！");
 			}
-			collectids = collectids.substring(0, collectids.length-1);
-			bookids = bookids.substring(0, bookids.length-1);
-			getCollectBook(bookids,collectids);
+			
 		}
 	});
 }

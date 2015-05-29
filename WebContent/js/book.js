@@ -30,6 +30,8 @@ function selectBookInfo(){
 			 $("#summary").html(data['summary']);
 			 $("#author_intro").html(data['author_intro']);
 			 $("title").val(data['title']);
+			 $("#inp-query").val(data['title']);
+			 $("title").html(data['title']);
 			 var catalog = data['catalog'].replace(/\n/,"<br/>");
 			 if(catalog == ""){
 				 $("#catalog").html("无");

@@ -78,4 +78,29 @@ public class CommunityBizImpl implements ICommunityBiz {
 		return this.communityDao.selectById(communityid);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityBiz#check(com.douban.model.entity.po.Community)
+	 */
+	@Override
+	public boolean check(Community community) {
+		// TODO Auto-generated method stub
+		this.affectedRows = this.communityDao.update(community);
+		if(this.affectedRows > 0 ){
+			return true;
+		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityBiz#findByName(java.lang.String)
+	 */
+	@Override
+	public boolean communitynameIsUsed(String name) {
+		// TODO Auto-generated method stub
+		if(this.communityDao.selectByName(name) != null){
+			return false;
+		}
+		return true;
+	}
+
 }

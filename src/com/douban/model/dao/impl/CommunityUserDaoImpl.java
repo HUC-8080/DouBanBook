@@ -1,10 +1,10 @@
 /**
- * <p>Title: AdminSessionDaoImpl.java</p>
+ * <p>Title: CommunityUserDaoImpl.java</p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2014</p>
  * <p>Company: </p>
  * @author 马金健
- * @date May 26, 2015
+ * @date May 27, 2015
  * @version 
  */
 package com.douban.model.dao.impl;
@@ -17,20 +17,20 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.douban.model.dao.IAdminSessionDao;
-import com.douban.model.entity.po.AdminSession;
+import com.douban.model.dao.ICommunityUserDao;
+import com.douban.model.entity.po.CommunityUser;
 
 /**
  * @author 马金健
  *
  */
-public class AdminSessionDaoImpl implements IAdminSessionDao {
+public class CommunityUserDaoImpl implements ICommunityUserDao {
 
 	private HibernateTemplate hibernateTemplate;
 	private PlatformTransactionManager transactionManager;
 	private TransactionTemplate transactionTemplate;
 	private int affectedRows = 0;
-	private List<AdminSession> adminSessions;
+	private List<CommunityUser> communityUsers;
 	
 	/**
 	 * <p>Project: DouBanBook</p>
@@ -41,10 +41,10 @@ public class AdminSessionDaoImpl implements IAdminSessionDao {
 	 * <p>@return </p>
 	 * @author 马金健
 	 * @since JDK 1.7.55 
-	 * @date May 26, 2015 9:04:31 PM
+	 * @date May 27, 2015 8:16:26 AM
 	 * @version 
 	 */
-	public AdminSessionDaoImpl() {
+	public CommunityUserDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -63,11 +63,11 @@ public class AdminSessionDaoImpl implements IAdminSessionDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.douban.model.dao.IAdminSessionDao#insert(com.douban.model.entity.po.AdminSession)
+	 * @see com.douban.model.dao.ICommunityUserDao#insert(com.douban.model.entity.po.CommunityUser)
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public int insert(final AdminSession session) {
+	public int insert(final CommunityUser communityUser) {
 		// TODO Auto-generated method stub
 		affectedRows = 0;
 		this.transactionTemplate = new TransactionTemplate(this.transactionManager);
@@ -76,7 +76,7 @@ public class AdminSessionDaoImpl implements IAdminSessionDao {
 			@Override
 			public Object doInTransaction(TransactionStatus arg0) {
 				// TODO Auto-generated method stub
-				hibernateTemplate.save(session);
+				hibernateTemplate.save(communityUser);
 				affectedRows = 1;
 				return 1;
 			}
@@ -86,41 +86,18 @@ public class AdminSessionDaoImpl implements IAdminSessionDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.douban.model.dao.IAdminSessionDao#delete(com.douban.model.entity.po.AdminSession)
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public int delete(final AdminSession session) {
-		// TODO Auto-generated method stub
-		affectedRows = 0;
-		this.transactionTemplate = new TransactionTemplate(this.transactionManager);
-		this.transactionTemplate.execute(new TransactionCallback() {
-
-			@Override
-			public Object doInTransaction(TransactionStatus arg0) {
-				// TODO Auto-generated method stub
-				hibernateTemplate.delete(session);
-				affectedRows = 1;
-				return 1;
-			}
-		
-		});
-		return affectedRows;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.douban.model.dao.IAdminSessionDao#select(com.douban.model.entity.po.AdminSession)
+	 * @see com.douban.model.dao.ICommunityUserDao#selectByCommunityIdWithUserId(com.douban.model.entity.po.CommunityUser)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public AdminSession select(AdminSession session) {
+	public CommunityUser selectByCommunityIdWithUserId(
+			CommunityUser communityUser) {
 		// TODO Auto-generated method stub
-		String strSQL = "FROM AdminSession WHERE adminid = ? AND sessionid = ?";
-		Object[] params = new Object[]{session.getAdminid(), session.getSessionid()};
-		
-		this.adminSessions = (List<AdminSession>) this.hibernateTemplate.find(strSQL, params);
-		if(this.adminSessions != null){
-			return this.adminSessions.get(0);
+		String strSQL = "FROM CommunityUser WHERE userid = ? AND communityid = ?";
+		Object[] params = new Object[]{communityUser.getUserid(), communityUser.getCommunityid()};
+		this.communityUsers = (List<CommunityUser>) this.hibernateTemplate.find(strSQL, params);
+		if(this.communityUsers != null && this.communityUsers.size() != 0){
+			return this.communityUsers.get(0);
 		}
 		return null;
 	}

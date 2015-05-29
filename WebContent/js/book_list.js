@@ -16,6 +16,7 @@ if(searchArr.length == 1 && searchArr[0].split("=")[0] == "q"){
 		}
 	}
 }
+
 //var search = searchArr[0].split("=")[1];
 //if(searchArr.length > 1){
 //	var pageArr = searchArr[1].split("=");
@@ -25,8 +26,10 @@ if(pageNum == null){
 	pageNum = 1;
 }
 var start = (pageNum - 1) * 10;
+selectBookList(search);
 
-function selectBookList(){
+function selectBookList(search){
+	alert(search);
 	$.ajax({
 		type:"GET",
 		url:"http://localhost/DouBanBook/books/search.json",
@@ -40,12 +43,13 @@ function selectBookList(){
 			for(var i=0;i<data['books'].length;i++){
 				content += "<li class='book-item'><div class='bookpic'><a href='http://localhost/DouBanBook/html/book.html?id="+data['books'][i]['id']+"'><img src='"+data['books'][i]['images']['medium']+"' width='100' height='160' /></a></div><div class='book-info'><h2><a href='http://localhost/DouBanBook/html/book.html?id="+data['books'][i]['id']+"'>"+data['books'][i]['title']+"</a></h2><div class='pub'><span>作者："+data['books'][i]['author'] +"</span></div><div class='pub'><span>出版社："+ data['books'][i]['publisher'] + "</span></div><div class='pub'><span>出版日期" + data['books'][i]['pubdate'] + "</span></div><div class='pub'><span>价格：" + data['books'][i]['price']+"</span></div></div></li>";
 			}
+			$("title").html(search);
 			$("#booklist").html(content);
 			$("#inp-query").val(search);
 			totalPages = parseInt(data['total'] / 10);
 			currentPage = parseInt(data['start'] / 10 + 1);
 			outstr = "";
-			setpage(); 
+			setpage(search); 
 		}
 	});
 }
@@ -55,7 +59,7 @@ function gotopage(target)
     setpage(); 
     //reloadpage(target);    //调用显示页面函数显示第几页,这个功能是用在页面内容用ajax载入的情况 
 } 
-function setpage() 
+function setpage(search) 
 { 
     if(totalPages<=10){        //总页数小于十页 
         for (count=1;count<=totalPages;count++) 
@@ -111,7 +115,3 @@ function setpage()
     $("#setpage").html("<div id='setpage'><span id='info'>共"+totalPages+"页|第"+currentPage+"页<\/span>" + outstr + "<\/div>");
     outstr = ""; 
 } 
-
-$(function(){
-	selectBookList();
-});

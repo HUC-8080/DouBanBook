@@ -10,7 +10,7 @@
 <script src="/DouBanBook/js/jquery.min.js"></script>
 <script src="/DouBanBook/js/login.js"></script>
 <script src="/DouBanBook/js/common.js"></script>
-<script src="/DouBanBook/js/communities.js"></script>
+<script src="/DouBanBook/js/create_community.js"></script>
 <title>圈子</title>
 </head>
 
@@ -30,38 +30,40 @@
                         </div>
                     </a>
                     <div class="nav-search">
-                    	<form action="#" method="get" >
+                    	<form action="http://localhost/DouBanBook/html/book_list.html" method="get">
                         	<fieldset>
                             	<label for="inp-query" style="display:none;">书名、作者、ISBN</label>
                                 <div class="inp">
-                                	<input id="inp-query" name="search_text" size="22" maxlength="60" placeholder="书名、作者、ISBN" autocomplete="off" dir="ltr" />
+                                	<input id="inp-query" size="22" name="q" maxlength="60" placeholder="书名、作者、ISBN" autocomplete="off" dir="ltr" />
                                 </div>
                                 <div class="inp-btn">
-                                	<input type="button" value="搜索" onclick="javascript:searchBooks();" />
+                                	<input type="submit" value="搜索" />
                                 </div>
                             </fieldset>
-                        </form>
+                         </form>
                     </div>
                 </div>
             </div>
         </div>
         <div class="content">
-        	<div class="article">
-        	<div class="table">
-        		<form method="post">
-    				<div class="panel admin-panel">
-			    		<div class="panel-head"><strong>圈子列表</strong></div>
-        				<table class="table table-hover" id="communities">
-        				</table>
-        			</div>
-        			</form>
-        		</div>
-        		</div>
-            <div class="aside">
-            	<div class="ad-placeholder">
-                	<input type="button" value="创建圈子" onclick="javascript:createcommunity()" />
-                </div>
-            </div>
+        	<form id="createcommunity" action="#" method="post"><!-- http://localhost/DouBanBook/community?op=createcommunity -->
+        		<table>
+        			<tr>
+        				<td>创建人：</td>
+        				<td><input type="text" readonly="readonly" name="username"/></td>
+        			</tr>
+        			<tr>
+        				<td>圈子名称：</td>
+        				<td><input type="text" name="name"/><span class="nameMsg"></span></td>
+        			</tr>
+        			<tr>
+        				<td>圈子描述：</td>
+        				<td><input type="text" name="description"/><span class="descriptionMsg"></span></td>
+        			</tr>
+        		</table>
+        		<input type="submit" value="提交"/>
+        		<input type="reset" value="重置"/>
+        	</form>
         </div>
     </div>
 </body>

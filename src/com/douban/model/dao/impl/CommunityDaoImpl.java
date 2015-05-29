@@ -117,4 +117,43 @@ public class CommunityDaoImpl implements ICommunityDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.ICommunityDao#update(com.douban.model.entity.po.Community)
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public int update(final Community community) {
+		// TODO Auto-generated method stub
+		affectedRows = 0;
+		this.transactionTemplate = new TransactionTemplate(this.transactionManager);
+		this.transactionTemplate.execute(new TransactionCallback() {
+
+			@Override
+			public Object doInTransaction(TransactionStatus arg0) {
+				// TODO Auto-generated method stub
+				hibernateTemplate.update(community);
+				affectedRows = 1;
+				return 1;
+			}
+		
+		});
+		return affectedRows;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.ICommunityDao#selectByName(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Community selectByName(String name) {
+		// TODO Auto-generated method stub
+		String strSQL = "FROM Community WHERE name = ?";
+		Object[] params = new Object[]{name};
+		this.communities = (List<Community>) this.hibernateTemplate.find(strSQL, params);
+		if(this.communities != null && this.communities.size() != 0){
+			return this.communities.get(0);
+		}
+		return null;
+	}
+
 }

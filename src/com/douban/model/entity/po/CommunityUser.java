@@ -1,10 +1,10 @@
 /**
- * <p>Title: AdminLog.java</p>
+ * <p>Title: CommunityUser.java</p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2014</p>
  * <p>Company: </p>
  * @author 马金健
- * @date May 15, 2015
+ * @date May 27, 2015
  * @version 
  */
 package com.douban.model.entity.po;
@@ -16,12 +16,12 @@ import java.io.Serializable;
  *
  */
 @SuppressWarnings("serial")
-public class AdminLog implements Serializable {
+public class CommunityUser implements Serializable {
 	
 	private long id;
-	private long adminId;
-	private String date;
-	private String msg;
+	private long communityid;
+	private long userid;
+
 	/**
 	 * <p>Project: DouBanBook</p>
 	 * <p>Package: com.douban.model.entity.po</p>
@@ -31,13 +31,13 @@ public class AdminLog implements Serializable {
 	 * <p>@return </p>
 	 * @author 马金健
 	 * @since JDK 1.7.55 
-	 * @date May 27, 2015 6:48:28 AM
+	 * @date May 27, 2015 8:13:45 AM
 	 * @version 
 	 */
-	public AdminLog() {
-		super();
+	public CommunityUser() {
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * <p>Project: DouBanBook</p>
 	 * <p>Package: com.douban.model.entity.po</p>
@@ -47,70 +47,65 @@ public class AdminLog implements Serializable {
 	 * <p>@return </p>
 	 * @author 马金健
 	 * @since JDK 1.7.55 
-	 * @date May 27, 2015 6:48:22 AM
+	 * @date May 27, 2015 8:14:56 AM
 	 * @version 
 	 */
-	public AdminLog(long id, long adminId, String date, String msg) {
+	public CommunityUser(long id, long communityid, long userid) {
 		super();
 		this.id = id;
-		this.adminId = adminId;
-		this.date = date;
-		this.msg = msg;
+		this.communityid = communityid;
+		this.userid = userid;
 	}
+
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	/**
-	 * @return the adminId
+	 * @return the communityid
 	 */
-	public long getAdminId() {
-		return adminId;
+	public long getCommunityid() {
+		return communityid;
 	}
+
 	/**
-	 * @param adminId the adminId to set
+	 * @param communityid the communityid to set
 	 */
-	public void setAdminId(long adminId) {
-		this.adminId = adminId;
+	public void setCommunityid(long communityid) {
+		this.communityid = communityid;
 	}
+
 	/**
-	 * @return the date
+	 * @return the userid
 	 */
-	public String getDate() {
-		return date;
+	public long getUserid() {
+		return userid;
 	}
+
 	/**
-	 * @param date the date to set
+	 * @param userid the userid to set
 	 */
-	public void setDate(String date) {
-		this.date = date;
+	public void setUserid(long userid) {
+		this.userid = userid;
 	}
-	/**
-	 * @return the msg
-	 */
-	public String getMsg() {
-		return msg;
-	}
-	/**
-	 * @param msg the msg to set
-	 */
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "AdminLog [id=" + id + ", adminId=" + adminId + ", date=" + date
-				+ ", msg=" + msg + "]";
+		return "CommunityUser [id=" + id + ", communityid=" + communityid
+				+ ", userid=" + userid + "]";
 	}
+
 }

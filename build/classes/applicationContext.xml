@@ -160,6 +160,14 @@
 			<ref bean="transactionManager"/>
 		</property>
 	</bean>
+	<bean id="communityUserDao" class="com.douban.model.dao.impl.CommunityUserDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
 	
 	<!-- ==============================配置业务层Service============================== -->
 		
@@ -218,6 +226,11 @@
 			<ref bean="adminLogDao"/>
 		</property>
 	</bean>
+	<bean id="communityUserBiz" class="com.douban.model.biz.impl.CommunityUserBizImpl">
+		<property name="communityUserDao">
+			<ref bean="communityUserDao"/>
+		</property>
+	</bean>
 	
 	<!-- ===============================配置控制器层Controller========================== -->
 	
@@ -268,6 +281,9 @@
 	<bean id="communityController" class="com.douban.controller.rest.CommunityController">
 		<property name="communityBiz">
 			<ref bean="communityBiz"/>
+		</property>
+		<property name="communityUserBiz">
+			<ref bean="communityUserBiz"/>
 		</property>
 	</bean>
 </beans>

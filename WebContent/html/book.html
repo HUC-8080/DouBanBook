@@ -9,7 +9,7 @@
 <script src="/DouBanBook/js/login.js"></script>
 <script src="/DouBanBook/js/book.js"></script>
 <script src="/DouBanBook/js/common.js"></script>
-<title>DouBan图书推荐</title>
+<title></title>
 </head>
 
 <body>
@@ -28,17 +28,17 @@
                         </div>
                     </a>
                     <div class="nav-search">
-                    	<form action="#" method="get" >
+                    	<form action="http://localhost/DouBanBook/html/book_list.html" method="get">
                         	<fieldset>
                             	<label for="inp-query" style="display:none;">书名、作者、ISBN</label>
                                 <div class="inp">
-                                	<input id="inp-query" name="search_text" size="22" maxlength="60" placeholder="书名、作者、ISBN" autocomplete="off" dir="ltr" />
+                                	<input id="inp-query" size="22" name="q" maxlength="60" placeholder="书名、作者、ISBN" autocomplete="off" dir="ltr" />
                                 </div>
                                 <div class="inp-btn">
-                                	<input type="button" value="搜索" onclick="javascript:searchBooks();" />
+                                	<input type="submit" value="搜索" />
                                 </div>
                             </fieldset>
-                        </form>
+                         </form>
                     </div>
                 </div>
             </div>

@@ -58,8 +58,7 @@ public class CollectBizImpl implements ICollectBiz {
 	@Override
 	public List<Collect> findAll(long userid) {
 		// TODO Auto-generated method stub
-		collects = this.collectDao.selectAll(userid);
-		return collects;
+		return this.collectDao.selectAll(userid);
 	}
 
 	/* (non-Javadoc)

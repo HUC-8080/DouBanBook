@@ -73,6 +73,9 @@ public class CollectDaoImpl implements ICollectDao {
 		String strSQL = "FROM Collect WHERE userid=?";
 		Object[] params = new Object[]{userid};
 		collects = (List<Collect>) this.hibernateTemplate.find(strSQL, params);
+		if(this.collects.size() == 0){
+			return null;
+		}
 		return collects;
 	}
 

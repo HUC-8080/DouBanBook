@@ -43,6 +43,8 @@
         <mapping resource="com/douban/model/entity/po/Article.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/Community.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/AdminSession.hbm.xml"/>
+        <mapping resource="com/douban/model/entity/po/AdminLog.hbm.xml"/>
+        <mapping resource="com/douban/model/entity/po/CommunityUser.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>

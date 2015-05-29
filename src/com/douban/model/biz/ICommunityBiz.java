@@ -60,4 +60,32 @@ public interface ICommunityBiz {
 	 * @version 
 	 */
 	public Community findById(final long communityid);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: findByName</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return Community</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 11:24:31 AM
+	 * @version 
+	 */
+	public boolean communitynameIsUsed(final String name);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: check</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return boolean</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 28, 2015 10:51:51 AM
+	 * @version 
+	 */
+	public boolean check(final Community community);
 }

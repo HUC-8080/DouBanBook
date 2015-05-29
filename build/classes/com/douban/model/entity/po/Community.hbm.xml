@@ -11,6 +11,7 @@
 		<property name="name"></property>
 		<property name="description"></property>
 		<property name="date"></property>
+		<property name="verify"></property>
 		<!-- <set name="users" table="community_user" lazy="false"> 
 			<key column="communityid"></key>
 			<many-to-many class="User" column="id" />
@@ -19,5 +20,6 @@
 			<key column="communityid"></key>
 			<one-to-many class="Article"/>
 		</set>
+		<many-to-one name="user" class="User" column="userid"></many-to-one>
 	</class>
 </hibernate-mapping>

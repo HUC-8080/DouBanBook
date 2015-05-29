@@ -60,4 +60,32 @@ public interface ICommunityDao {
 	 * @version 
 	 */
 	public Community selectById(final long communityid);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: selectByName</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return Community</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 11:21:24 AM
+	 * @version 
+	 */
+	public Community selectByName(final String name);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: update</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return int</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 28, 2015 10:49:29 AM
+	 * @version 
+	 */
+	public int update(final Community community);
 }
