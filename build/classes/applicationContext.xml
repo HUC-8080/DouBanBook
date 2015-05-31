@@ -241,6 +241,9 @@
 		<property name="sessionBiz">
 			<ref bean="sessionBiz"/>
 		</property>
+		<property name="adminLogBiz">
+			<ref bean="adminLogBiz"/>
+		</property>
 	</bean>
 	<bean id="labelController" class="com.douban.controller.rest.LabelController">
 		<property name="labelBiz">
@@ -284,6 +287,9 @@
 		</property>
 		<property name="communityUserBiz">
 			<ref bean="communityUserBiz"/>
+		</property>
+		<property name="adminLogBiz">
+			<ref bean="adminLogBiz"/>
 		</property>
 	</bean>
 </beans>

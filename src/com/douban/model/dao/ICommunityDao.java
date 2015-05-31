@@ -88,4 +88,19 @@ public interface ICommunityDao {
 	 * @version 
 	 */
 	public int update(final Community community);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: delete</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return int</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 6:25:27 PM
+	 * @version 
+	 */
+	public int delete(final Community community);
+	
 }

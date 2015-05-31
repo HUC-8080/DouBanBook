@@ -16,10 +16,11 @@
 			<key column="communityid"></key>
 			<many-to-many class="User" column="id" />
 		</set> -->
-		<set name="articles" table="article" lazy="false">
+		<!--  cascade="all-delete-orphan" -->
+		<!-- <set name="articles" table="article" lazy="true">
 			<key column="communityid"></key>
-			<one-to-many class="Article"/>
-		</set>
-		<many-to-one name="user" class="User" column="userid"></many-to-one>
+			<one-to-many class="Article" not-found="ignore"/>
+		</set> -->
+		<many-to-one name="user" class="User" column="userid" cascade="save-update"></many-to-one>
 	</class>
 </hibernate-mapping>

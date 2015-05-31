@@ -10,6 +10,7 @@
 		</id>
 		<property name="adminId"></property>
 		<property name="date"></property>
+		<property name="ip"></property>
 		<property name="msg"></property>
 	</class>
 </hibernate-mapping>

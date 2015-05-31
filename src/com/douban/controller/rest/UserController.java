@@ -24,9 +24,13 @@ import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 import com.douban.common.util.CookieUtil;
+import com.douban.common.util.IPAddress;
 import com.douban.common.util.SessionUtil;
+import com.douban.model.biz.impl.AdminLogBizImpl;
 import com.douban.model.biz.impl.SessionBizImpl;
 import com.douban.model.biz.impl.UserBizImpl;
+import com.douban.model.entity.po.AdminLog;
+import com.douban.model.entity.po.AdminSession;
 import com.douban.model.entity.po.Session;
 import com.douban.model.entity.po.User;
 import com.douban.model.entity.result.UserResult;
@@ -72,10 +76,13 @@ public class UserController extends ActionSupport implements
 	
 	private UserResult result;
 	private User user;
+	private AdminLog adminLog;
 	private List<User> users;
-	private UserBizImpl userBiz; 
+	private UserBizImpl userBiz;
+	private AdminLogBizImpl adminLogBiz;
 	private SessionBizImpl sessionBiz;
 	
+	private AdminSession adminSession;
 	private Session session;
 	
 	/**
@@ -106,6 +113,13 @@ public class UserController extends ActionSupport implements
 	 */
 	public void setSessionBiz(SessionBizImpl sessionBiz) {
 		this.sessionBiz = sessionBiz;
+	}
+
+	/**
+	 * @param adminLogBiz the adminLogBiz to set
+	 */
+	public void setAdminLogBiz(AdminLogBizImpl adminLogBiz) {
+		this.adminLogBiz = adminLogBiz;
 	}
 
 	/**
@@ -428,6 +442,19 @@ public class UserController extends ActionSupport implements
 			result = new UserResult("获取用户列表成功", 1008, null, users2);
 		//-----------------------删除用户-------------------------
 		}else if(op.equals("deleteUser")){
+			this.user = this.userBiz.queryUserInfo(userid);
+			
+			//写入管理员日志
+			this.adminLog = new AdminLog();
+			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.adminLog.setMsg("删除用户名为"+this.user.getUsername()+"的用户");
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.adminLog.setDate(format.format(date));
+			this.adminLog.setIp(IPAddress.getIpAddr(ServletActionContext.getRequest()));
+			this.adminLogBiz.addLog(adminLog);
+
 			if(this.userBiz.removeByUserId(userid)){
 				this.result = new UserResult("用户删除成功", 1009, null, null);
 			}else{
@@ -443,14 +470,45 @@ public class UserController extends ActionSupport implements
 			this.result = new UserResult("批量删除成功", 1011, null, null);
 		//-----------------------禁言用户-------------------------
 		}else if(op.equals("gag")){
-			this.user = new User();
-			this.user.setId(userid);	
+			this.user = this.userBiz.queryUserInfo(userid);
 			this.user.setIsgag(true);
+			
+			//写入管理员日志
+			this.adminLog = new AdminLog();
+			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.adminLog.setMsg("将用户名为"+this.user.getUsername()+"的用户禁言");
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.adminLog.setDate(format.format(date));
+			this.adminLog.setIp(IPAddress.getIpAddr(ServletActionContext.getRequest()));
+			this.adminLogBiz.addLog(adminLog);
+
+			
 			if(this.userBiz.modifyInfo(user)){
 				this.result = new UserResult("禁言用户成功", 1012, null, null);
 			}else{
 				this.result = new UserResult("禁言用户失败", 1013, null, null);
 			}
+		//-----------------------解除某用户禁言----------------------
+		}else if(op.equals("removegag")){
+			this.user = this.userBiz.queryUserInfo(userid);
+			this.user.setIsgag(false);
+			this.userBiz.modifyInfo(user);
+			
+			//写入管理员日志
+			this.adminLog = new AdminLog();
+			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.adminLog.setMsg("解除"+this.user.getUsername()+"用户禁言");
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.adminLog.setDate(format.format(date));
+			this.adminLog.setIp(IPAddress.getIpAddr(ServletActionContext.getRequest()));
+			this.adminLogBiz.addLog(adminLog);
+			
+			this.result = new UserResult("解除"+this.user.getUsername()+"用户禁言", 1030, null, null);
+		
 		//-----------------------查看用户信息-------------------------
 		}else if(op.equals("userinfo")){
 			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());

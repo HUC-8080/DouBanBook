@@ -4,14 +4,14 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.douban.model.entity.po">
-	<class name="Article" lazy="false">
+	<class name="Article" lazy="true">
 		<id name="id">
 			<generator class="native"></generator>
 		</id>
 		<property name="name"></property>
 		<property name="content"></property>
 		<property name="date"></property>
-		<many-to-one name="user" class="User" column="userid"></many-to-one>
-		<property name="communityid"></property>
+		<many-to-one name="user" class="User" column="userid" lazy="false" fetch="select" cascade="delete" outer-join="true"></many-to-one>
+		<many-to-one name="community" class="Community" column="communityid" lazy="false" cascade="delete" fetch="select" outer-join="true" ></many-to-one>
 	</class>
 </hibernate-mapping>

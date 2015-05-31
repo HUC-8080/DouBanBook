@@ -12,6 +12,7 @@ package com.douban.model.biz;
 import java.util.List;
 
 import com.douban.model.entity.po.Community;
+import com.douban.model.entity.po.CommunityUser;
 
 /**
  * @author 马金健
@@ -88,4 +89,32 @@ public interface ICommunityBiz {
 	 * @version 
 	 */
 	public boolean check(final Community community);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: quitCommunity</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return boolean</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 6:26:44 PM
+	 * @version 
+	 */
+	public boolean quitCommunity(final Community community);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: selectMyCommunities</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return List<Community></p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 30, 2015 1:26:29 PM
+	 * @version 
+	 */
+	public List<Community> selectMyCommunities(final List<CommunityUser> communityUsers);
 }

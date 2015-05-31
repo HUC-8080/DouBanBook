@@ -27,6 +27,11 @@ $(function(){
 				if(data['code'] != 6002){
 					alert("您还未登陆！！现在跳转至登陆页面！！");
 					location.href = "http://localhost/DouBanBook/admin/login.html";
+				}else{
+					$("#adminName").html("您好，"+data['admin']['username']+"， 欢迎您的光临。");
+					if($("#username") != null){
+						$("#username").html(data['admin']['username']);
+					}
 				}
 			}
 		});

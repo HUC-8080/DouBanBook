@@ -53,4 +53,13 @@ public class AdminBizImpl implements IAdminBiz {
 		return this.adminDao.selectByUsernameWithPassword(username, password);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.IAdminBiz#queryInfo(long)
+	 */
+	@Override
+	public Admin queryInfo(long adminId) {
+		// TODO Auto-generated method stub
+		return this.adminDao.selectById(adminId);
+	}
+
 }

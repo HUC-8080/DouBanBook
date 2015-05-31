@@ -9,6 +9,8 @@
  */
 package com.douban.model.biz.impl;
 
+import java.util.List;
+
 import com.douban.model.biz.ICommunityUserBiz;
 import com.douban.model.dao.impl.CommunityUserDaoImpl;
 import com.douban.model.entity.po.CommunityUser;
@@ -68,6 +70,38 @@ public class CommunityUserBizImpl implements ICommunityUserBiz {
 			return true;
 		}
 		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityUserBiz#quitCommunity(com.douban.model.entity.po.CommunityUser)
+	 */
+	@Override
+	public boolean quitCommunity(CommunityUser communityUser) {
+		// TODO Auto-generated method stub
+		this.affectedRows = this.communityUserDao.delete(communityUser);
+		if(this.affectedRows > 0 ){
+			return true;
+		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityUserBiz#selectByCommunityIdWithUserId(com.douban.model.entity.po.CommunityUser)
+	 */
+	@Override
+	public CommunityUser selectByCommunityIdWithUserId(
+			CommunityUser communityUser) {
+		// TODO Auto-generated method stub
+		return this.communityUserDao.selectByCommunityIdWithUserId(communityUser);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityUserBiz#myCommunities(long)
+	 */
+	@Override
+	public List<CommunityUser> myCommunities(long userid) {
+		// TODO Auto-generated method stub
+		return this.communityUserDao.selectByUserId(userid);
 	}
 
 }

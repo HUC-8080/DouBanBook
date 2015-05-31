@@ -9,6 +9,8 @@
  */
 package com.douban.model.biz;
 
+import java.util.List;
+
 import com.douban.model.entity.po.CommunityUser;
 
 /**
@@ -44,4 +46,46 @@ public interface ICommunityUserBiz {
 	 * @version 
 	 */
 	public boolean userIsJoinedThisCommunity(final CommunityUser communityUser);
+
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: quitCommunity</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return boolean</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 6:58:32 PM
+	 * @version 
+	 */
+	public boolean quitCommunity(final CommunityUser communityUser);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: selectByCommunityIdWithUserId</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return CommunityUser</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 7:05:27 PM
+	 * @version 
+	 */
+	public CommunityUser selectByCommunityIdWithUserId(final CommunityUser communityUser);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: myCommunities</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return List<CommunityUser></p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 30, 2015 1:23:55 PM
+	 * @version 
+	 */
+	public List<CommunityUser> myCommunities(final long userid);
 }

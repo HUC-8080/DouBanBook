@@ -18,9 +18,9 @@
 		<property name="telephone"></property>
 		<property name="isgag" type="java.lang.Boolean"></property>
 		<property name="regdate"></property>
-		<set name="friends" table="Friend" lazy="false" inverse="false">
+		<!-- <set name="friends" table="Friend" lazy="false" inverse="false">
 			<key column="userid" not-null="true"></key>
 			<many-to-many lazy="false" column="friendid" class="com.douban.model.entity.po.User"></many-to-many>
-		</set>
+		</set> -->
 	</class>
 </hibernate-mapping>

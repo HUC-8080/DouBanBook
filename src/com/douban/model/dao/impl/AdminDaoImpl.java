@@ -78,4 +78,20 @@ public class AdminDaoImpl implements IAdminDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.IAdminDao#selectById(long)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Admin selectById(long adminId) {
+		// TODO Auto-generated method stub
+		String strSQL = "FROM Admin WHERE id = ?";
+		Object[] params = new Object[]{adminId};
+		this.admins = (List<Admin>) this.hibernateTemplate.find(strSQL, params);
+		if(this.admins != null && this.admins.size() != 0){
+			return this.admins.get(0);
+		}
+		return null;
+	}
+
 }

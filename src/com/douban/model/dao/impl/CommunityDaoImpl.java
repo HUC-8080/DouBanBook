@@ -156,4 +156,27 @@ public class CommunityDaoImpl implements ICommunityDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.ICommunityDao#delete(com.douban.model.entity.po.Community)
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public int delete(final Community community) {
+		// TODO Auto-generated method stub
+		affectedRows = 0;
+		this.transactionTemplate = new TransactionTemplate(this.transactionManager);
+		this.transactionTemplate.execute(new TransactionCallback() {
+
+			@Override
+			public Object doInTransaction(TransactionStatus arg0) {
+				// TODO Auto-generated method stub
+				hibernateTemplate.delete(community);
+				affectedRows = 1;
+				return 1;
+			}
+		
+		});
+		return affectedRows;
+	}
+
 }

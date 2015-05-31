@@ -30,4 +30,18 @@ public interface IAdminDao {
 	 * @version 
 	 */
 	public Admin selectByUsernameWithPassword(final String username, final String password);
+
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: selectById</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return Admin</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 31, 2015 10:54:42 AM
+	 * @version 
+	 */
+	public Admin selectById(final long adminId);
 }

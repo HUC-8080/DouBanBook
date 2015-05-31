@@ -10,8 +10,7 @@
 package com.douban.model.entity.po;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * @author 马金健
@@ -25,7 +24,7 @@ public class Community implements Serializable{
 	private String description;
 	private String date;
 //	private Set<User> users = new HashSet<User>();
-	private Set<Article> articles = new HashSet<Article>();
+//	private Set<Article> articles = new HashSet<Article>();
 	private User user = new User();
 	private boolean verify;
 
@@ -45,6 +44,8 @@ public class Community implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	/**
 	 * <p>Project: DouBanBook</p>
 	 * <p>Package: com.douban.model.entity.po</p>
@@ -54,20 +55,21 @@ public class Community implements Serializable{
 	 * <p>@return </p>
 	 * @author 马金健
 	 * @since JDK 1.7.55 
-	 * @date May 27, 2015 9:13:15 AM
+	 * @date May 31, 2015 8:42:22 AM
 	 * @version 
 	 */
 	public Community(long id, String name, String description, String date,
-			Set<Article> articles, User user, boolean verify) {
+			User user, boolean verify) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.date = date;
-		this.articles = articles;
 		this.user = user;
 		this.verify = verify;
 	}
+
+
 
 	/**
 	 * @return the id
@@ -126,20 +128,6 @@ public class Community implements Serializable{
 	}
 
 	/**
-	 * @return the articles
-	 */
-	public Set<Article> getArticles() {
-		return articles;
-	}
-
-	/**
-	 * @param articles the articles to set
-	 */
-	public void setArticles(Set<Article> articles) {
-		this.articles = articles;
-	}
-
-	/**
 	 * @return the user
 	 */
 	public User getUser() {
@@ -173,8 +161,7 @@ public class Community implements Serializable{
 	@Override
 	public String toString() {
 		return "Community [id=" + id + ", name=" + name + ", description="
-				+ description + ", date=" + date + ", articles=" + articles
-				+ ", user=" + user + ", verify=" + verify + "]";
+				+ description + ", date=" + date + ", user=" + user + ", verify=" + verify + "]";
 	}
 
 }

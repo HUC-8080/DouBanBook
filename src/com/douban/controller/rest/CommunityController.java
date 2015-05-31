@@ -20,9 +20,13 @@ import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 import com.douban.common.util.CookieUtil;
+import com.douban.common.util.IPAddress;
+import com.douban.model.biz.impl.AdminLogBizImpl;
 import com.douban.model.biz.impl.CommunityBizImpl;
 import com.douban.model.biz.impl.CommunityUserBizImpl;
 import com.douban.model.biz.impl.UserBizImpl;
+import com.douban.model.entity.po.AdminLog;
+import com.douban.model.entity.po.AdminSession;
 import com.douban.model.entity.po.Community;
 import com.douban.model.entity.po.CommunityUser;
 import com.douban.model.entity.po.Session;
@@ -43,6 +47,8 @@ public class CommunityController extends ActionSupport implements
 	private List<Community> communities;
 	private Community community;
 	private CommunityUser communityUser;
+	private AdminLog adminLog;
+	
 	private String op;
 	private long communityid;
 	private long userid;
@@ -53,7 +59,9 @@ public class CommunityController extends ActionSupport implements
 	private CommunityBizImpl communityBiz;
 	private CommunityUserBizImpl communityUserBiz;
 	private UserBizImpl userBiz;
+	private AdminLogBizImpl adminLogBiz;
 	private Session session;
+	private AdminSession adminSession;
 
 	/**
 	 * <p>Project: DouBanBook</p>
@@ -90,6 +98,13 @@ public class CommunityController extends ActionSupport implements
 	 */
 	public void setUserBiz(UserBizImpl userBiz) {
 		this.userBiz = userBiz;
+	}
+
+	/**
+	 * @param adminLogBiz the adminLogBiz to set
+	 */
+	public void setAdminLogBiz(AdminLogBizImpl adminLogBiz) {
+		this.adminLogBiz = adminLogBiz;
 	}
 
 	/* (non-Javadoc)
@@ -200,9 +215,22 @@ public class CommunityController extends ActionSupport implements
 			}
 		//-------------------圈子审核--------------------------------
 		}else if(op.equals("check")){
+			//圈子审核操作
 			this.community = this.communityBiz.findById(communityid);
 			this.community.setVerify(true);
 			this.communityBiz.check(community);
+			
+			//写入管理员日志
+			this.adminLog = new AdminLog();
+			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.adminLog.setMsg("审核圈子名为"+this.community.getName()+"的圈子");
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.adminLog.setDate(format.format(date));
+			this.adminLog.setIp(IPAddress.getIpAddr(ServletActionContext.getRequest()));
+			this.adminLogBiz.addLog(adminLog);
+
 			this.result = new CommunityResult("圈子审核成功", 8090, null, null);
 		//-------------------判断用户是否加入了这个圈子--------------
 		}else if(op.equals("userIsJoinThisCommunity")){
@@ -222,6 +250,41 @@ public class CommunityController extends ActionSupport implements
 			}else{
 				this.result = new CommunityResult("这个圈子名称已经被使用", 8005, null, null);
 			}
+		//---------------------退出圈子------------------------------
+		}else if(op.equals("quitCommunity")){
+			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
+			this.communityUser = new CommunityUser();
+			this.communityUser.setCommunityid(this.communityid);
+			this.communityUser.setUserid(this.session.getUserid());
+			this.communityUser = this.communityUserBiz.selectByCommunityIdWithUserId(communityUser);
+			this.communityUserBiz.quitCommunity(communityUser);
+			this.result = new CommunityResult("退出圈子成功", 8006, null, null);
+		//------------------我加入的圈子列表------------------------
+		}else if(op.equals("mycommunities")){
+			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
+			if(this.communityUserBiz.myCommunities(this.session.getUserid()).size() ==0){
+				this.result = new CommunityResult("你还未加入任何圈子", 8008, null, null);
+			}else{
+				this.communities = this.communityBiz.selectMyCommunities(this.communityUserBiz.myCommunities(this.session.getUserid()));
+				this.result = new CommunityResult("查找我的圈子成功", 8007, null, this.communities);
+			}
+		//-------------------删除圈子-------------------------------
+		}else if(op.equals("deleteCommunity")){
+			this.community = this.communityBiz.findById(communityid);
+			this.communityBiz.quitCommunity(community);
+			
+			//写入管理员日志
+			this.adminLog = new AdminLog();
+			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.adminLog.setMsg("删除圈子名为"+this.community.getName()+"的圈子");
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.adminLog.setDate(format.format(date));
+			this.adminLog.setIp(IPAddress.getIpAddr(ServletActionContext.getRequest()));
+			this.adminLogBiz.addLog(adminLog);
+			
+			this.result = new CommunityResult("删除圈子成功", 8009, null, null);
 		}
 		return new DefaultHttpHeaders();
 	}
@@ -233,10 +296,11 @@ public class CommunityController extends ActionSupport implements
 			this.community.setName(name);
 			this.community.setDescription(description);
 			Date date = new Date();
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			this.community.setDate(format.format(date));
 			this.community.setUser(this.userBiz.queryInfo(username));
 			this.communityBiz.add(community);
+			
 			return new DefaultHttpHeaders("createCommunitySuccess");
 		}
 		return new DefaultHttpHeaders(); 

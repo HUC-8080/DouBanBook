@@ -56,7 +56,8 @@ public class CookieUtil {
 	 * @version 
 	 */
 	public static Cookie addCookie(long userid, long sessionid){
-		Cookie cookie = new Cookie(USER_COOKIE, userid+","+sessionid);
+		String str = EncodeBase64.encodeBase64(userid+","+sessionid);
+		Cookie cookie = new Cookie(USER_COOKIE, str);
 		return cookie;
 	}
 	
@@ -73,7 +74,8 @@ public class CookieUtil {
 	 * @version 
 	 */
 	public static Cookie addAdminCookie(long adminid, long sessionid){
-		Cookie cookie = new Cookie(ADMIN_COOKIE, adminid+","+sessionid);
+		String str = EncodeBase64.encodeBase64(adminid+","+sessionid);
+		Cookie cookie = new Cookie(ADMIN_COOKIE, str);
 		return cookie;
 	}
 	
@@ -98,6 +100,7 @@ public class CookieUtil {
 				if(CookieUtil.USER_COOKIE.equals(cookie.getName())){
 					String value = cookie.getValue();
 					if(StringUtils.isNotBlank(value)){
+						value = EncodeBase64.decodeBase64(value);
 						String[] split = value.split(",");
 						long userid = Long.parseLong(split[0]);
 						long sessionid = Long.parseLong(split[1]);
@@ -133,6 +136,7 @@ public class CookieUtil {
 				if(CookieUtil.ADMIN_COOKIE.equals(cookie.getName())){
 					String value = cookie.getValue();
 					if(StringUtils.isNotBlank(value)){
+						value = EncodeBase64.decodeBase64(value);
 						String[] split = value.split(",");
 						long adminid = Long.parseLong(split[0]);
 						long sessionid = Long.parseLong(split[1]);

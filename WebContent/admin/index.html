@@ -35,11 +35,18 @@
                 <!-- <li><a href="system.html" class="icon-cog"> 系统</a>
             		<ul><li><a href="#">全局设置</a></li><li class="active"><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
                 </li> -->
-                <li><a href="content.html" class="icon-file-text"> 审批管理</a>
-					<ul><li><a href="#">添加内容</a></li><li class="active"><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul>
+                <li><a href="community_check.html" class="icon-file-text"> 圈子管理</a>
+					<ul><li class="active"><a href="#">圈子管理</a></li></ul>
+					<!-- <ul><li><a href="#">添加内容</a></li><li class="active"><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul> -->
                 </li>
                 <li><a href="usermanage.html" class="icon-file-text"> 用户管理</a>
 					<ul><li class="active"><a href="#">用户管理</a></li></ul>
+                </li>
+                <li><a href="logmanage.html" class="icon-file-text"> 日志管理</a>
+					<ul><li class="active"><a href="#">日志管理</a></li></ul>
+                </li>
+                <li><a href="articlemanage.html" class="icon-file-text"> 文章管理</a>
+					<ul><li class="active"><a href="#">文章管理</a></li></ul>
                 </li>
                 <!-- <li><a href="#" class="icon-shopping-cart"> 订单</a></li>
                 <li><a href="#" class="icon-user"> 会员</a></li>
@@ -48,7 +55,7 @@
             </ul>
         </div>
         <div class="admin-bread">
-            <span>您好，admin，欢迎您的光临。</span>
+            <span id="adminName"></span>
             <ul class="bread">
                 <li><a href="index.html" class="icon-home"> 开始</a></li>
                 <li>后台首页</li>
@@ -65,7 +72,7 @@
                 	<img src="images/face.jpg" width="120" class="radius-circle" /><br />
                     admin
                 </div> -->
-                <div class="panel-foot bg-back border-back">您好，admin！！欢迎您登陆DouBanBook后台管理系统</div>
+                <div class="panel-foot bg-back border-back">您好，<span id="username"></span>！！欢迎您登陆DouBanBook后台管理系统</div>
             </div>
             <br />
             <br />

@@ -9,11 +9,13 @@
  */
 package com.douban.model.biz.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.douban.model.biz.ICommunityBiz;
 import com.douban.model.dao.impl.CommunityDaoImpl;
 import com.douban.model.entity.po.Community;
+import com.douban.model.entity.po.CommunityUser;
 
 /**
  * @author 马金健
@@ -22,6 +24,8 @@ import com.douban.model.entity.po.Community;
 public class CommunityBizImpl implements ICommunityBiz {
 	
 	private CommunityDaoImpl communityDao;
+	private List<Community> communities;
+	private Community community;
 	private int affectedRows = 0;
 
 	/**
@@ -101,6 +105,34 @@ public class CommunityBizImpl implements ICommunityBiz {
 			return false;
 		}
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityBiz#quitCommunity(com.douban.model.entity.po.Community)
+	 */
+	@Override
+	public boolean quitCommunity(Community community) {
+		// TODO Auto-generated method stub
+		this.affectedRows = this.communityDao.delete(community);
+		if(this.affectedRows > 0 ){
+			return true;
+		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityBiz#selectMyCommunities(java.util.List)
+	 */
+	@Override
+	public List<Community> selectMyCommunities(
+			List<CommunityUser> communityUsers) {
+		// TODO Auto-generated method stub
+		this.communities = new ArrayList<Community>();
+		for(CommunityUser communityUser : communityUsers){
+			this.community = this.communityDao.selectById(communityUser.getCommunityid());
+			this.communities.add(community);
+		}
+		return this.communities;
 	}
 
 }

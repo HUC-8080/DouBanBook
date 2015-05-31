@@ -23,7 +23,7 @@ public class Article implements Serializable {
 	private String content;
 	private String date;
 	private User user;
-	private long communityid;
+	private Community community;
  
 	/**
 	 * <p>Project: DouBanBook</p>
@@ -54,14 +54,14 @@ public class Article implements Serializable {
 	 * @version 
 	 */
 	public Article(long id, String name, String content, String date,
-			User user, long communityid) {
+			User user, Community community) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.content = content;
 		this.date = date;
 		this.user = user;
-		this.communityid = communityid;
+		this.community = community;
 	}
 
 
@@ -136,17 +136,17 @@ public class Article implements Serializable {
 	}
 
 	/**
-	 * @return the communityid
+	 * @return the community
 	 */
-	public long getCommunityid() {
-		return communityid;
+	public Community getCommunity() {
+		return community;
 	}
 
 	/**
-	 * @param communityid the communityid to set
+	 * @param community the community to set
 	 */
-	public void setCommunityid(long communityid) {
-		this.communityid = communityid;
+	public void setCommunity(Community community) {
+		this.community = community;
 	}
 
 	/* (non-Javadoc)
@@ -155,7 +155,8 @@ public class Article implements Serializable {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", name=" + name + ", content=" + content
-				+ ", date=" + date + ", user=" + user + ", communityid="
-				+ communityid + "]";
+				+ ", date=" + date + ", user=" + user + ", community="
+				+ community + "]";
 	}
+	
 }

@@ -21,6 +21,7 @@ public class AdminLog implements Serializable {
 	private long id;
 	private long adminId;
 	private String date;
+	private String ip;
 	private String msg;
 	/**
 	 * <p>Project: DouBanBook</p>
@@ -38,6 +39,7 @@ public class AdminLog implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * <p>Project: DouBanBook</p>
 	 * <p>Package: com.douban.model.entity.po</p>
@@ -47,16 +49,20 @@ public class AdminLog implements Serializable {
 	 * <p>@return </p>
 	 * @author 马金健
 	 * @since JDK 1.7.55 
-	 * @date May 27, 2015 6:48:22 AM
+	 * @date May 31, 2015 9:18:35 AM
 	 * @version 
 	 */
-	public AdminLog(long id, long adminId, String date, String msg) {
+	public AdminLog(long id, long adminId, String date, String ip, String msg) {
 		super();
 		this.id = id;
 		this.adminId = adminId;
 		this.date = date;
+		this.ip = ip;
 		this.msg = msg;
 	}
+
+
+
 	/**
 	 * @return the id
 	 */
@@ -94,6 +100,18 @@ public class AdminLog implements Serializable {
 		this.date = date;
 	}
 	/**
+	 * @return the ip
+	 */
+	public String getIp() {
+		return ip;
+	}
+	/**
+	 * @param ip the ip to set
+	 */
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	/**
 	 * @return the msg
 	 */
 	public String getMsg() {
@@ -105,12 +123,15 @@ public class AdminLog implements Serializable {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "AdminLog [id=" + id + ", adminId=" + adminId + ", date=" + date
-				+ ", msg=" + msg + "]";
+				+ ", ip=" + ip + ", msg=" + msg + "]";
 	}
+
+
 }

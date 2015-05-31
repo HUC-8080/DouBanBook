@@ -10,8 +10,6 @@
 package com.douban.model.entity.po;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author 马金健
@@ -31,7 +29,7 @@ public class User implements Serializable {
 	private String telephone;
 	private Boolean isgag;	//禁言
 	private String regdate;
-	private Set<Friend> friends = new HashSet<Friend>();
+//	private Set<Friend> friends = new HashSet<Friend>();
 	
 	/**
 	 * <p>Project: DouBan</p>
@@ -63,7 +61,7 @@ public class User implements Serializable {
 	 */
 	public User(long id, String username, String password, String realname,
 			String sex, String birth, String hobby, String email,
-			String telephone, Boolean isgag, String regdate, Set<Friend> friends) {
+			String telephone, Boolean isgag, String regdate) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -76,7 +74,6 @@ public class User implements Serializable {
 		this.telephone = telephone;
 		this.isgag = isgag;
 		this.regdate = regdate;
-		this.friends = friends;
 	}
 
 	/**
@@ -235,22 +232,6 @@ public class User implements Serializable {
 		this.regdate = regdate;
 	}
 
-
-
-	/**
-	 * @return the friends
-	 */
-	public Set<Friend> getFriends() {
-		return friends;
-	}
-
-	/**
-	 * @param friends the friends to set
-	 */
-	public void setFriends(Set<Friend> friends) {
-		this.friends = friends;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -260,6 +241,7 @@ public class User implements Serializable {
 				+ password + ", realname=" + realname + ", sex=" + sex
 				+ ", birth=" + birth + ", hobby=" + hobby + ", email=" + email
 				+ ", telephone=" + telephone + ", isgag=" + isgag
-				+ ", regdate=" + regdate + ", friends=" + friends.toString() + "]";
+				+ ", regdate=" + regdate + "]";
 	}
+
 }

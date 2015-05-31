@@ -18,7 +18,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Admin implements Serializable {
 	
-	private int id;
+	private long id;
 	private String username;
 	private String password;
 
@@ -50,7 +50,7 @@ public class Admin implements Serializable {
 	 * @date May 13, 2015 10:01:48 PM
 	 * @version 
 	 */
-	public Admin(int id, String username, String password) {
+	public Admin(long id, String username, String password) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -60,14 +60,14 @@ public class Admin implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

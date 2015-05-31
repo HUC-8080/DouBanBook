@@ -102,4 +102,43 @@ public class CommunityUserDaoImpl implements ICommunityUserDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.ICommunityUserDao#delete(com.douban.model.entity.po.CommunityUser)
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public int delete(final CommunityUser communityUser) {
+		// TODO Auto-generated method stub
+		affectedRows = 0;
+		this.transactionTemplate = new TransactionTemplate(this.transactionManager);
+		this.transactionTemplate.execute(new TransactionCallback() {
+
+			@Override
+			public Object doInTransaction(TransactionStatus arg0) {
+				// TODO Auto-generated method stub
+				hibernateTemplate.delete(communityUser);
+				affectedRows = 1;
+				return 1;
+			}
+		
+		});
+		return affectedRows;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.ICommunityUserDao#selectByUserId(long)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CommunityUser> selectByUserId(long userid) {
+		// TODO Auto-generated method stub
+		String strSQL = "FROM CommunityUser WHERE userid = ?";
+		Object[] params = new Object[]{userid};
+		this.communityUsers = (List<CommunityUser>) this.hibernateTemplate.find(strSQL, params);
+		if(this.communityUsers != null && this.communityUsers.size() != 0){
+			return this.communityUsers;
+		}
+		return null;
+	}
+
 }

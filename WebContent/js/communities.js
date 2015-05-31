@@ -18,7 +18,7 @@ if(search != null){
 }
 $(function(){
 	selectCommunityList();
-	communityIsLogin();
+//	communityIsLogin();
 });
 
 function selectCommunityList(){
@@ -31,11 +31,12 @@ function selectCommunityList(){
 			if(data['code'] == 8000){
 				for(var i=0;i<data["communities"].length;i++){
 					if(data['communities'][i]['verify'] == 1){
-						content += "<tr><td><a href='http://localhost/DouBanBook/html/community.html?communityid="+data['communities'][i]['id']+"'>"+data['communities'][i]['name']+"</a></td><td>"+data['communities'][i]['description']+"</td><td>"+data['communities'][i]['user']['username']+"</td><td>"+data['communities'][i]['date']+"</td><td><a id='joinCommunity' class='button border-yellow button-little' href='#' onclick='javascript:addCommunityIsLogin("+data['communities'][i]['id']+")'>加入</a></td></tr>";	
+						content += "<tr><td><a href='http://localhost/DouBanBook/html/community.html?communityid="+data['communities'][i]['id']+"'>"+data['communities'][i]['name']+"</a></td><td>"+data['communities'][i]['description']+"</td><td>"+data['communities'][i]['user']['username']+"</td><td>"+data['communities'][i]['date']+"</td><td><a id='joinCommunity"+data['communities'][i]['id']+"' class='button border-yellow button-little' href='#' onclick='javascript:addCommunityIsLogin("+data['communities'][i]['id']+")'>加入</a><a id='quitCommunity"+data['communities'][i]['id']+"' class='button border-yellow button-little' href='#' onclick='javascript:quitCommunity("+data['communities'][i]['id']+")'>退出</a></td></tr>";	
 					}
 				}
 				$("#communities").html(content);
 				for(var i=0;i<data['communities'].length;i++){
+					$("#quitCommunity"+data['communities'][i]['id']).hide();
 					if(data['communities'][i]['verify'] == 1){
 						userIsJoinedThisCommunity(data['communities'][i]['id']);
 					}
@@ -63,8 +64,6 @@ function addCommunityIsLogin(id){
 }
 
 function addCommunity(userid , id){
-	alert(id);
-	alert(userid);
 	$.ajax({
 		type:"GET",
 		url:"http://localhost/DouBanBook/community.json?op=joinCommunity",
@@ -85,11 +84,34 @@ function userIsJoinedThisCommunity(communityId){
 		data:"communityid="+communityId,
 		dataType:"json",
 		success:function(data){
-			alert(data['code']);
 			if(data['code'] == 8002){
-				$("#joinCommunity").attr("href", "javascript:void(0);");
-				$("#joinCommunity").removeAttr("onclick");
-				$("#joinCommunity").html("已加入");
+				$("#joinCommunity"+communityId).attr("href", "javascript:void(0);");
+				$("#joinCommunity"+communityId).removeAttr("onclick");
+				$("#quitCommunity"+communityId).show();
+				$("#joinCommunity"+communityId).hide();
+//				alert($(".quitCommunity").html());
+//				alert("显示退出");
+//				alert("不显示加入");
+			}else{
+				
+				$("#joinCommunity"+communityId).show();
+				$("#quitCommunity"+communityId).hide();
+//				alert("显示加入");
+//				alert("不显示退出");
+			}
+		}
+	});
+}
+function quitCommunity(communityId){
+	$.ajax({
+		type:"GET",
+		url:"http://localhost/DouBanBook/community.json?op=quitCommunity",
+		data:"communityid="+communityId,
+		dataType:"json",
+		success:function(data){
+			if(data['code'] == 8006){
+				alert("退出圈子成功");
+				location.reload();
 			}
 		}
 	});

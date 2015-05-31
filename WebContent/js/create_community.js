@@ -1,10 +1,28 @@
 $(function(){
 	isLogin();
 	$(".content form").submit(function(){
-		
+		if($("input[name='name']").val() == ""){
+			return false;
+		}
+		if($("input[name='description']").val() == ""){
+			return false;
+		}
+		return true;
 	});
 	$("input[name='name']").blur(function(){
-		communityNameIsUsed($("input[name='name']").val());
+		if($("input[name='name']").val() != ""){
+			communityNameIsUsed($("input[name='name']").val());
+		}else{
+			$(".nameMsg").html("<span style='color:red;'>圈子名不能为空！！</span>");
+		}
+	});
+	$("input[name='description']").blur(function(){
+		if($("input[name='description']").val() == ""){
+			$(".descriptionMsg").html("<span style='color:red;'>圈子描述不能为空！！</span>");
+		}
+		if($("input[name='description']").val() != ""){
+			$(".descriptionMsg").html("");
+		}
 	});
 });
 

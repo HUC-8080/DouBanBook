@@ -83,6 +83,7 @@
     	<action name="administrator" class="com.douban.controller.rest.AdminController">
     		<result name="adminLoginSuccess" type="redirect">/admin/index.html?code=${code}</result>
     		<result name="adminLoginFailed" type="redirect">/admin/login.html?code=${code}</result>
+    		<result name="logoutSuccess" type="redirect">/admin/login.html</result>
     		<!-- <interceptor-ref name="mydefault"></interceptor-ref> -->
     	</action>
     	<!-- 豆瓣第三方登录控制器 -->

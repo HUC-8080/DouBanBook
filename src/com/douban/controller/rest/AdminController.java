@@ -22,6 +22,7 @@ import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 import com.douban.common.util.CookieUtil;
+import com.douban.common.util.IPAddress;
 import com.douban.common.util.SessionUtil;
 import com.douban.model.biz.impl.AdminBizImpl;
 import com.douban.model.biz.impl.AdminLogBizImpl;
@@ -171,10 +172,18 @@ public class AdminController extends ActionSupport implements
 			if(this.session == null){
 				this.result = new AdminResult("此用户尚未登陆", 6003, null);
 			}else if(this.adminSessionBiz.find(this.session) != null){
-				this.result = new AdminResult("此用户已经登陆", 6002, null);
+				this.admin = this.adminBiz.queryInfo(this.session.getAdminid());
+				this.admin.setPassword("");
+				this.result = new AdminResult("此用户已经登陆", 6002, this.admin);
 			}else{
 				this.result = new AdminResult("此用户尚未登陆", 6003, null);
 			}
+		//----------------------管理员退出----------------------------------------
+		}else if(op.equals("logout")){
+			this.session = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
+			this.adminSessionBiz.remove(session);
+			ServletActionContext.getResponse().addCookie(CookieUtil.deleteAdminCookie(ServletActionContext.getRequest()));
+			return new DefaultHttpHeaders("logoutSuccess");
 		}
 		return new DefaultHttpHeaders();
 	}
@@ -193,6 +202,10 @@ public class AdminController extends ActionSupport implements
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 				this.adminLog.setDate(format.format(date));
 
+				//登陆的ip地址
+				String ip = IPAddress.getIpAddr(ServletActionContext.getRequest());
+				this.adminLog.setIp(ip);;
+				
 				this.adminLog.setMsg("登录");
 				this.adminLogBiz.addLog(this.adminLog);
 				//----------------------管理员cookie----------------------

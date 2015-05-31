@@ -8,7 +8,7 @@ $(function(){
 			if(data['code'] == 1008){
 				for(var i=0;i<data['users'].length;i++){
 					if(data['users'][i]['isgag'] != 0){
-						content += "<tr><td><input type='checkbox' name='id' value='"+data['users'][i]['id']+"' /></td><td>"+data['users'][i]['id']+"</td><td>"+data['users'][i]['username']+"</td><td>"+data['users'][i]['email']+"</td><td>"+data['users'][i]['telephone']+"</td><td>"+data['users'][i]['regdate']+"</td><td><a class='button button-little'>禁言</a> <a class='button border-yellow button-little' href='#' onclick='javascript:deleteUser("+data['users'][i]['id']+")'>删除</a></td></tr>";
+						content += "<tr><td><input type='checkbox' name='id' value='"+data['users'][i]['id']+"' /></td><td>"+data['users'][i]['id']+"</td><td>"+data['users'][i]['username']+"</td><td>"+data['users'][i]['email']+"</td><td>"+data['users'][i]['telephone']+"</td><td>"+data['users'][i]['regdate']+"</td><td><a class='button button-little' href='#' onclick='javascript:removegag("+data['users'][i]['id']+")'>禁言</a> <a class='button border-yellow button-little' href='#' onclick='javascript:deleteUser("+data['users'][i]['id']+")'>删除</a></td></tr>";
 					}else{
 						content += "<tr><td><input type='checkbox' name='id' value='"+data['users'][i]['id']+"' /></td><td>"+data['users'][i]['id']+"</td><td>"+data['users'][i]['username']+"</td><td>"+data['users'][i]['email']+"</td><td>"+data['users'][i]['telephone']+"</td><td>"+data['users'][i]['regdate']+"</td><td><a class='button border-blue button-little' href='#' onclick='javascript:gag("+data['users'][i]['id']+")'>禁言</a> <a class='button border-yellow button-little' href='#' onclick='javascript:deleteUser("+data['users'][i]['id']+")'>删除</a></td></tr>";
 					}
@@ -64,6 +64,21 @@ function gag(id){
 		$.ajax({
 			type:"GET",
 			url:"http://localhost/DouBanBook/user.json?op=gag",
+			data:"userid="+id,
+			dataType:"json",
+			success:function(data){
+				alert(data['msg']);
+				location.reload();
+			}
+		});
+	}
+}
+
+function removegag(id){
+	if(confirm("您确定解除此用户禁言？")){
+		$.ajax({
+			type:"GET",
+			url:"http://localhost/DouBanBook/user.json?op=removegag",
 			data:"userid="+id,
 			dataType:"json",
 			success:function(data){

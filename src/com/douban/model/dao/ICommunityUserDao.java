@@ -9,6 +9,8 @@
  */
 package com.douban.model.dao;
 
+import java.util.List;
+
 import com.douban.model.entity.po.CommunityUser;
 
 /**
@@ -45,4 +47,31 @@ public interface ICommunityUserDao {
 	 */
 	public CommunityUser selectByCommunityIdWithUserId(final CommunityUser communityUser);
 
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: delete</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return int</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 29, 2015 6:57:00 PM
+	 * @version 
+	 */
+	public int delete(final CommunityUser communityUser);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: selectByUserId</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return CommunityUser</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 30, 2015 1:19:26 PM
+	 * @version 
+	 */
+	public List<CommunityUser> selectByUserId(final long userid);
 }
