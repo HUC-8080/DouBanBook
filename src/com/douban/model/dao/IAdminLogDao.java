@@ -46,4 +46,32 @@ public interface IAdminLogDao {
 	 * @version 
 	 */
 	public List<AdminLog> selectAll();
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: deleteById</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return int</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 31, 2015 11:43:05 PM
+	 * @version 
+	 */
+	public int deleteById(final long adminlogid);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.dao</p>
+	 * <p>Title: selectById</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return AdminLog</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 31, 2015 11:45:12 PM
+	 * @version 
+	 */
+	public AdminLog selectById(final long adminlogid);
 }

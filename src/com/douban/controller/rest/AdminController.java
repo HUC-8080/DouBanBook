@@ -183,6 +183,18 @@ public class AdminController extends ActionSupport implements
 			this.session = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
 			this.adminSessionBiz.remove(session);
 			ServletActionContext.getResponse().addCookie(CookieUtil.deleteAdminCookie(ServletActionContext.getRequest()));
+			
+			//写入管理员日志
+			this.adminLog = new AdminLog();
+			this.admin = this.adminBiz.queryInfo(this.session.getAdminid());
+			this.adminLog.setAdmin(admin);
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			this.adminLog.setDate(format.format(date));
+			String ip = IPAddress.getIpAddr(ServletActionContext.getRequest());
+			this.adminLog.setIp(ip);;
+			this.adminLog.setMsg("退出");
+			
 			return new DefaultHttpHeaders("logoutSuccess");
 		}
 		return new DefaultHttpHeaders();
@@ -196,7 +208,7 @@ public class AdminController extends ActionSupport implements
 				
 				//----------------------管理员日志------------------------
 				this.adminLog = new AdminLog();
-				this.adminLog.setAdminId(this.admin.getId());
+				this.adminLog.setAdmin(this.admin);
 				
 				Date date = new Date();
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

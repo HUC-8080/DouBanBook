@@ -19,7 +19,8 @@ import java.io.Serializable;
 public class AdminLog implements Serializable {
 	
 	private long id;
-	private long adminId;
+//	private long adminId;
+	private Admin admin;
 	private String date;
 	private String ip;
 	private String msg;
@@ -49,13 +50,13 @@ public class AdminLog implements Serializable {
 	 * <p>@return </p>
 	 * @author 马金健
 	 * @since JDK 1.7.55 
-	 * @date May 31, 2015 9:18:35 AM
+	 * @date May 31, 2015 11:03:01 PM
 	 * @version 
 	 */
-	public AdminLog(long id, long adminId, String date, String ip, String msg) {
+	public AdminLog(long id, Admin admin, String date, String ip, String msg) {
 		super();
 		this.id = id;
-		this.adminId = adminId;
+		this.admin = admin;
 		this.date = date;
 		this.ip = ip;
 		this.msg = msg;
@@ -75,18 +76,22 @@ public class AdminLog implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	
 	/**
-	 * @return the adminId
+	 * @return the admin
 	 */
-	public long getAdminId() {
-		return adminId;
+	public Admin getAdmin() {
+		return admin;
 	}
+
 	/**
-	 * @param adminId the adminId to set
+	 * @param admin the admin to set
 	 */
-	public void setAdminId(long adminId) {
-		this.adminId = adminId;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
+
 	/**
 	 * @return the date
 	 */
@@ -129,7 +134,7 @@ public class AdminLog implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "AdminLog [id=" + id + ", adminId=" + adminId + ", date=" + date
+		return "AdminLog [id=" + id + ", admin=" + admin + ", date=" + date
 				+ ", ip=" + ip + ", msg=" + msg + "]";
 	}
 

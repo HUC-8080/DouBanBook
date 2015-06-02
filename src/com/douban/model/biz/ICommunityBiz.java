@@ -117,4 +117,18 @@ public interface ICommunityBiz {
 	 * @version 
 	 */
 	public List<Community> selectMyCommunities(final List<CommunityUser> communityUsers);
+
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: communityCount</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return int</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 31, 2015 3:47:41 PM
+	 * @version 
+	 */
+	public int communityCount();
 }

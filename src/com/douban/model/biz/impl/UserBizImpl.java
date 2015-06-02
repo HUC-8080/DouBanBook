@@ -142,4 +142,13 @@ public class UserBizImpl implements IUserBiz{
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.IUserBiz#userCount()
+	 */
+	@Override
+	public int userCount() {
+		// TODO Auto-generated method stub
+		return this.userDao.selectAll().size();
+	}
+
 }

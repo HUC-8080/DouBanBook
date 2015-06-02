@@ -68,4 +68,17 @@ public class AdminLogBizImpl implements IAdminLogBiz {
 		return this.adminLogs;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.IAdminLogBiz#removeAdminLog(long)
+	 */
+	@Override
+	public boolean removeAdminLog(long adminlogid) {
+		// TODO Auto-generated method stub
+		this.affectedRows = this.adminLogDao.deleteById(adminlogid);
+		if(this.affectedRows > 0 ){
+			return true;
+		}
+		return false;
+	}
+
 }

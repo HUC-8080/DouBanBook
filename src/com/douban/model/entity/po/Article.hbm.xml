@@ -13,5 +13,6 @@
 		<property name="date"></property>
 		<many-to-one name="user" class="User" column="userid" lazy="false" fetch="select" cascade="delete" outer-join="true"></many-to-one>
 		<many-to-one name="community" class="Community" column="communityid" lazy="false" cascade="delete" fetch="select" outer-join="true" ></many-to-one>
+		<property name="shield" type="java.lang.Boolean"></property>
 	</class>
 </hibernate-mapping>

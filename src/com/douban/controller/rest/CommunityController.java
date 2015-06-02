@@ -21,10 +21,12 @@ import org.apache.struts2.rest.HttpHeaders;
 
 import com.douban.common.util.CookieUtil;
 import com.douban.common.util.IPAddress;
+import com.douban.model.biz.impl.AdminBizImpl;
 import com.douban.model.biz.impl.AdminLogBizImpl;
 import com.douban.model.biz.impl.CommunityBizImpl;
 import com.douban.model.biz.impl.CommunityUserBizImpl;
 import com.douban.model.biz.impl.UserBizImpl;
+import com.douban.model.entity.po.Admin;
 import com.douban.model.entity.po.AdminLog;
 import com.douban.model.entity.po.AdminSession;
 import com.douban.model.entity.po.Community;
@@ -48,6 +50,7 @@ public class CommunityController extends ActionSupport implements
 	private Community community;
 	private CommunityUser communityUser;
 	private AdminLog adminLog;
+	private Admin admin;
 	
 	private String op;
 	private long communityid;
@@ -60,6 +63,7 @@ public class CommunityController extends ActionSupport implements
 	private CommunityUserBizImpl communityUserBiz;
 	private UserBizImpl userBiz;
 	private AdminLogBizImpl adminLogBiz;
+	private AdminBizImpl adminBiz;
 	private Session session;
 	private AdminSession adminSession;
 
@@ -105,6 +109,13 @@ public class CommunityController extends ActionSupport implements
 	 */
 	public void setAdminLogBiz(AdminLogBizImpl adminLogBiz) {
 		this.adminLogBiz = adminLogBiz;
+	}
+
+	/**
+	 * @param adminBiz the adminBiz to set
+	 */
+	public void setAdminBiz(AdminBizImpl adminBiz) {
+		this.adminBiz = adminBiz;
 	}
 
 	/* (non-Javadoc)
@@ -223,7 +234,8 @@ public class CommunityController extends ActionSupport implements
 			//写入管理员日志
 			this.adminLog = new AdminLog();
 			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
-			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.admin = this.adminBiz.queryInfo(this.adminSession.getAdminid());
+			this.adminLog.setAdmin(this.admin);
 			this.adminLog.setMsg("审核圈子名为"+this.community.getName()+"的圈子");
 			Date date = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -276,7 +288,8 @@ public class CommunityController extends ActionSupport implements
 			//写入管理员日志
 			this.adminLog = new AdminLog();
 			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
-			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.admin = this.adminBiz.queryInfo(this.adminSession.getAdminid());
+			this.adminLog.setAdmin(this.admin);
 			this.adminLog.setMsg("删除圈子名为"+this.community.getName()+"的圈子");
 			Date date = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -24,7 +24,32 @@ public class Article implements Serializable {
 	private String date;
 	private User user;
 	private Community community;
+	private boolean shield;
  
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.entity.po</p>
+	 * <p>Title: </p>
+	 * <p>Description: </p>
+	 * <p>@Param </p>
+	 * <p>@return </p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date Jun 1, 2015 11:16:07 PM
+	 * @version 
+	 */
+	public Article(long id, String name, String content, String date,
+			User user, Community community, boolean shield) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.content = content;
+		this.date = date;
+		this.user = user;
+		this.community = community;
+		this.shield = shield;
+	}
+
 	/**
 	 * <p>Project: DouBanBook</p>
 	 * <p>Package: com.douban.model.entity.po</p>
@@ -39,29 +64,6 @@ public class Article implements Serializable {
 	 */
 	public Article() {
 		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * <p>Project: DouBanBook</p>
-	 * <p>Package: com.douban.model.entity.po</p>
-	 * <p>Title: </p>
-	 * <p>Description: </p>
-	 * <p>@Param </p>
-	 * <p>@return </p>
-	 * @author 马金健
-	 * @since JDK 1.7.55 
-	 * @date May 26, 2015 4:38:55 PM
-	 * @version 
-	 */
-	public Article(long id, String name, String content, String date,
-			User user, Community community) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.content = content;
-		this.date = date;
-		this.user = user;
-		this.community = community;
 	}
 
 
@@ -149,6 +151,20 @@ public class Article implements Serializable {
 		this.community = community;
 	}
 
+	/**
+	 * @return the shield
+	 */
+	public boolean isShield() {
+		return shield;
+	}
+
+	/**
+	 * @param shield the shield to set
+	 */
+	public void setShield(boolean shield) {
+		this.shield = shield;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -156,7 +172,7 @@ public class Article implements Serializable {
 	public String toString() {
 		return "Article [id=" + id + ", name=" + name + ", content=" + content
 				+ ", date=" + date + ", user=" + user + ", community="
-				+ community + "]";
+				+ community + ", shield=" + shield + "]";
 	}
 	
 }

@@ -46,4 +46,18 @@ public interface IAdminLogBiz {
 	 * @version 
 	 */
 	public List<AdminLog> findAll();
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: removeAdminLog</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return boolean</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 31, 2015 11:49:37 PM
+	 * @version 
+	 */
+	public boolean removeAdminLog(final long adminlogid);
 }

@@ -26,9 +26,11 @@ import org.apache.struts2.rest.HttpHeaders;
 import com.douban.common.util.CookieUtil;
 import com.douban.common.util.IPAddress;
 import com.douban.common.util.SessionUtil;
+import com.douban.model.biz.impl.AdminBizImpl;
 import com.douban.model.biz.impl.AdminLogBizImpl;
 import com.douban.model.biz.impl.SessionBizImpl;
 import com.douban.model.biz.impl.UserBizImpl;
+import com.douban.model.entity.po.Admin;
 import com.douban.model.entity.po.AdminLog;
 import com.douban.model.entity.po.AdminSession;
 import com.douban.model.entity.po.Session;
@@ -77,10 +79,13 @@ public class UserController extends ActionSupport implements
 	private UserResult result;
 	private User user;
 	private AdminLog adminLog;
+	private Admin admin;
+	
 	private List<User> users;
 	private UserBizImpl userBiz;
 	private AdminLogBizImpl adminLogBiz;
 	private SessionBizImpl sessionBiz;
+	private AdminBizImpl adminBiz;
 	
 	private AdminSession adminSession;
 	private Session session;
@@ -120,6 +125,13 @@ public class UserController extends ActionSupport implements
 	 */
 	public void setAdminLogBiz(AdminLogBizImpl adminLogBiz) {
 		this.adminLogBiz = adminLogBiz;
+	}
+
+	/**
+	 * @param adminBiz the adminBiz to set
+	 */
+	public void setAdminBiz(AdminBizImpl adminBiz) {
+		this.adminBiz = adminBiz;
 	}
 
 	/**
@@ -447,7 +459,8 @@ public class UserController extends ActionSupport implements
 			//写入管理员日志
 			this.adminLog = new AdminLog();
 			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
-			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.admin = this.adminBiz.queryInfo(this.adminSession.getAdminid());
+			this.adminLog.setAdmin(this.admin);
 			this.adminLog.setMsg("删除用户名为"+this.user.getUsername()+"的用户");
 			Date date = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -476,7 +489,8 @@ public class UserController extends ActionSupport implements
 			//写入管理员日志
 			this.adminLog = new AdminLog();
 			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
-			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.admin = this.adminBiz.queryInfo(this.adminSession.getAdminid());
+			this.adminLog.setAdmin(this.admin);
 			this.adminLog.setMsg("将用户名为"+this.user.getUsername()+"的用户禁言");
 			Date date = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -499,7 +513,8 @@ public class UserController extends ActionSupport implements
 			//写入管理员日志
 			this.adminLog = new AdminLog();
 			this.adminSession = CookieUtil.getAdminCookie(ServletActionContext.getRequest());
-			this.adminLog.setAdminId(this.adminSession.getAdminid());
+			this.admin = this.adminBiz.queryInfo(this.adminSession.getAdminid());
+			this.adminLog.setAdmin(admin);
 			this.adminLog.setMsg("解除"+this.user.getUsername()+"用户禁言");
 			Date date = new Date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

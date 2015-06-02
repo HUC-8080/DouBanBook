@@ -112,6 +112,15 @@
     		<result name="createCommunitySuccess" type="redirect">/html/communities.html?code=8080</result>
     		<result name="community_check_success" type="redirect">/admin/community_check.html?code=8090</result>
     	</action>
+    	<action name="systeminfo" class="com.douban.controller.rest.SystemInfoController">
+    		<result name="index"></result>
+    	</action>
+    	<action name="adminlog" class="com.douban.controller.rest.AdminLogController">
+    		<result name="index"></result>
+    	</action>
+    	<action name="article" class="com.douban.controller.rest.ArticleController">
+    		<result name="index"></result>
+    	</action>
     </package>
     <!-- Add packages here -->
 </struts>

@@ -135,4 +135,13 @@ public class CommunityBizImpl implements ICommunityBiz {
 		return this.communities;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.biz.ICommunityBiz#communityCount()
+	 */
+	@Override
+	public int communityCount() {
+		// TODO Auto-generated method stub
+		return this.communityDao.selectAll().size();
+	}
+
 }

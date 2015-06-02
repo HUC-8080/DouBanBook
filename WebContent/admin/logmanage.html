@@ -13,7 +13,7 @@
     <script src="js/pintuer.js"></script>
     <script src="js/respond.js"></script>
     <script src="js/admin.js"></script>
-    <script src="js/user.js"></script>
+    <script src="js/logmanage.js"></script>
     <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
     <link href="/favicon.ico" rel="bookmark icon" />
 </head>
@@ -30,24 +30,20 @@
                 <a class="button button-little bg-yellow" href="http://localhost/DouBanBook/administrator?op=logout">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
-                <!-- <li class="active"><a href="index.html" class="icon-home"> 开始</a>
-                    <ul><li><a href="system.html">系统设置</a></li><li><a href="content.html">内容管理</a></li><li><a href="usermanage.html">用户管理</a></li><li><a href="#">订单管理</a></li><li class="active"><a href="#">会员管理</a></li><li><a href="#">文件管理</a></li><li><a href="#">栏目管理</a></li></ul>
-                </li> -->
-                <!-- <li><a href="system.html" class="icon-cog"> 系统</a>
-            		<ul><li><a href="#">全局设置</a></li><li class="active"><a href="#">系统设置</a></li><li><a href="#">会员设置</a></li><li><a href="#">积分设置</a></li></ul>
-                </li> -->
+                <li><a href="index.html" class="icon-home"> 开始</a>
+                    <ul><li><a href="community_check.html">圈子管理</a></li><li><a href="usermanage.html">用户管理</a></li><li><a href="logmanage.html">日志管理</a></li><li><a href="articlemanage.html">文章管理</a></li></ul>
+                </li>
                 <li><a href="community_check.html" class="icon-file-text"> 圈子管理</a>
-					<ul><li class="active"><a href="#">圈子管理</a></li></ul>
-					<!-- <ul><li><a href="#">添加内容</a></li><li class="active"><a href="#">内容管理</a></li><li><a href="#">分类设置</a></li><li><a href="#">链接管理</a></li></ul> -->
+					<ul><li class="active"><a href="community_check.html">圈子管理</a></li><li><a href="usermanage.html">用户管理</a></li><li><a href="logmanage.html">日志管理</a></li><li><a href="articlemanage.html">文章管理</a></li></ul>
                 </li>
                 <li><a href="usermanage.html" class="icon-file-text"> 用户管理</a>
-					<ul><li class="active"><a href="#">用户管理</a></li></ul>
+					<ul><li><a href="community_check.html">圈子管理</a></li><li class="active"><a href="usermanage.html">用户管理</a></li><li><a href="logmanage.html">日志管理</a></li><li><a href="articlemanage.html">文章管理</a></li></ul>
                 </li>
-                <li><a href="logmanage.html" class="icon-file-text"> 日志管理</a>
-					<ul><li class="active"><a href="#">日志管理</a></li></ul>
+                <li class="active"><a href="logmanage.html" class="icon-file-text"> 日志管理</a>
+					<ul><li><a href="community_check.html">圈子管理</a></li><li><a href="usermanage.html">用户管理</a></li><li class="active"><a href="logmanage.html">日志管理</a></li><li><a href="articlemanage.html">文章管理</a></li></ul>
                 </li>
                 <li><a href="articlemanage.html" class="icon-file-text"> 文章管理</a>
-					<ul><li class="active"><a href="#">文章管理</a></li></ul>
+					<ul><li><a href="community_check.html">圈子管理</a></li><li><a href="usermanage.html">用户管理</a></li><li><a href="logmanage.html">日志管理</a></li><li class="active"><a href="articlemanage.html">文章管理</a></li></ul>
                 </li>
                 <!-- <li><a href="#" class="icon-shopping-cart"> 订单</a></li>
                 <li><a href="#" class="icon-user"> 会员</a></li>
@@ -73,7 +69,7 @@
             <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
             <input type="button" class="button button-small border-yellow" value="批量删除" id="batch_delete" />
         </div>
-        <table class="table table-hover" id="user_list">
+        <table class="table table-hover" id="log_list">
         	<!-- <tr><th width="45">选择</th><th width="120">用户ID</th><th width="*">用户名</th><th width="100">创建时间</th><th width="100">操作</th></tr>
             <tr><td><input type="checkbox" name="id" value="1" /></td><td>起步</td><td>下载拼图框架</td><td>2014-10-1</td><td><a class="button border-blue button-little" href="#">禁言</a> <a class="button border-yellow button-little" href="#" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a></td></tr>
             <tr><td><input type="checkbox" name="id" value="2" /></td><td>起步</td><td>框架包含的文件</td><td>2014-9-20</td><td><a class="button border-blue button-little" href="#">禁言</a> <a class="button border-yellow button-little" href="#" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a></td></tr>

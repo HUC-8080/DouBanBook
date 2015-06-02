@@ -8,7 +8,7 @@
 		<id name="id">
 			<generator class="native"></generator>
 		</id>
-		<property name="adminId"></property>
+		<many-to-one name="admin" class="Admin" column="adminid"></many-to-one>
 		<property name="date"></property>
 		<property name="ip"></property>
 		<property name="msg"></property>

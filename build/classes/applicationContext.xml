@@ -168,6 +168,22 @@
 			<ref bean="transactionManager"/>
 		</property>
 	</bean>
+	<bean id="articleDao" class="com.douban.model.dao.impl.ArticleDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
+	<bean id="commentDao" class="com.douban.model.dao.impl.CommentDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+	</bean>
 	
 	<!-- ==============================配置业务层Service============================== -->
 		
@@ -231,6 +247,16 @@
 			<ref bean="communityUserDao"/>
 		</property>
 	</bean>
+	<bean id="articleBiz" class="com.douban.model.biz.impl.ArticleBizImpl">
+		<property name="articleDao">
+			<ref bean="articleDao"/>
+		</property>
+	</bean>
+	<bean id="commentBiz" class="com.douban.model.biz.impl.CommentBizImpl">
+		<property name="commentDao">
+			<ref bean="commentDao"/>
+		</property>
+	</bean>
 	
 	<!-- ===============================配置控制器层Controller========================== -->
 	
@@ -243,6 +269,9 @@
 		</property>
 		<property name="adminLogBiz">
 			<ref bean="adminLogBiz"/>
+		</property>
+		<property name="adminBiz">
+			<ref bean="adminBiz"/>
 		</property>
 	</bean>
 	<bean id="labelController" class="com.douban.controller.rest.LabelController">
@@ -290,6 +319,36 @@
 		</property>
 		<property name="adminLogBiz">
 			<ref bean="adminLogBiz"/>
+		</property>
+		<property name="adminBiz">
+			<ref bean="adminBiz"/>
+		</property>
+	</bean>
+	<bean id="systemInfoController" class="com.douban.controller.rest.SystemInfoController">
+		<property name="communityBiz">
+			<ref bean="communityBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+		<property name="articleBiz">
+			<ref bean="articleBiz"/>
+		</property>
+		<property name="commentBiz">
+			<ref bean="commentBiz"/>
+		</property>
+	</bean>
+	<bean id="adminlog" class="com.douban.controller.rest.AdminLogController">
+		<property name="adminLogBiz">
+			<ref bean="adminLogBiz"/>
+		</property>
+		<!-- <property name="adminBiz">
+			<ref bean="adminBiz"/>
+		</property> -->
+	</bean>
+	<bean id="article" class="com.douban.controller.rest.ArticleController">
+		<property name="articleBiz">
+			<ref bean="articleBiz"/>
 		</property>
 	</bean>
 </beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.douban.model.entity.po">
+	<class name="Comment" lazy="false">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="content"></property>
+		<property name="date"></property>
+		<many-to-one name="user" class="User" column="userid" lazy="false" fetch="select" cascade="delete" outer-join="true"></many-to-one>
+		<many-to-one name="article" class="Article" column="articleid" lazy="false" cascade="delete" fetch="select" outer-join="true" ></many-to-one>
+	</class>
+</hibernate-mapping>

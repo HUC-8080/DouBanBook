@@ -98,4 +98,44 @@ public class AdminLogDaoImpl implements IAdminLogDao {
 		return this.adminLogs;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.IAdminLogDao#deleteById(long)
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public int deleteById(long adminlogid) {
+		// TODO Auto-generated method stub
+		final AdminLog adminLog = this.selectById(adminlogid);
+		affectedRows = 0;
+		this.transactionTemplate = new TransactionTemplate(this.transactionManager);
+		this.transactionTemplate.execute(new TransactionCallback() {
+
+			@Override
+			public Object doInTransaction(TransactionStatus arg0) {
+				// TODO Auto-generated method stub
+				hibernateTemplate.delete(adminLog);
+				affectedRows = 1;
+				return 1;
+			}
+		
+		});
+		return affectedRows;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.douban.model.dao.IAdminLogDao#selectById(long)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public AdminLog selectById(long adminlogid) {
+		// TODO Auto-generated method stub
+		String strSQL = "FROM AdminLog WHERE id = ?";
+		Object[] params = new Object[]{adminlogid};
+		this.adminLogs = (List<AdminLog>) this.hibernateTemplate.find(strSQL, params);
+		if(this.adminLogs != null && this.adminLogs.size() != 0){
+			return this.adminLogs.get(0);
+		}
+		return null;
+	}
+
 }

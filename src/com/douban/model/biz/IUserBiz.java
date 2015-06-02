@@ -145,4 +145,18 @@ public interface IUserBiz {
 	 * @version 
 	 */
 	public boolean emailIsRegistered(final String email);
+	
+	/**
+	 * <p>Project: DouBanBook</p>
+	 * <p>Package: com.douban.model.biz</p>
+	 * <p>Title: userCount</p>
+	 * <p>Description: </p>
+	 * <p>@param </p>
+	 * <p>@return int</p>
+	 * @author 马金健
+	 * @since JDK 1.7.55 
+	 * @date May 31, 2015 3:45:02 PM
+	 * @version 
+	 */
+	public int userCount();
 }
