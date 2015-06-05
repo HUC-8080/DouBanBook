@@ -1,7 +1,7 @@
 function rank_list(){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost/DouBanBook/rank.json",
+		url:"/DouBanBook/rank.json",
 		dataType:"json",
 		success:function(data){
 			var arr = [];
@@ -16,7 +16,7 @@ function rank_list(){
 function select_ranks(rankStr){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost/DouBanBook/books/search.json?op=getRanks",
+		url:"/DouBanBook/books/search.json?op=getRanks",
 		data:"ranks="+rankStr,
 		dataType:"json",
 		success:function(data){

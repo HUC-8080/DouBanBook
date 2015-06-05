@@ -274,7 +274,7 @@ public class CommunityController extends ActionSupport implements
 		//------------------我加入的圈子列表------------------------
 		}else if(op.equals("mycommunities")){
 			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
-			if(this.communityUserBiz.myCommunities(this.session.getUserid()).size() ==0){
+			if(this.communityUserBiz.myCommunities(this.session.getUserid()) == null){
 				this.result = new CommunityResult("你还未加入任何圈子", 8008, null, null);
 			}else{
 				this.communities = this.communityBiz.selectMyCommunities(this.communityUserBiz.myCommunities(this.session.getUserid()));

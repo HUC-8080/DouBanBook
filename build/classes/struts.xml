@@ -90,10 +90,6 @@
     	<action name="douban" class="com.douban.controller.rest.DouBanController">
     		<result name="doubanloginSuccess" type="redirect">/html/perfect_userinfo.html?username=${uname}</result>
     	</action>
-    	<!-- 用户好友控制器 -->
-    	<action name="friend" class="com.douban.controller.rest.FriendController">
-    		<result name="index">/html/index.html</result>
-    	</action>
     	<!-- 用户信息绑定控制器 -->
     	<action name="binding" class="com.douban.controller.rest.BindingController">
     		<result name="index">/html/index.html</result>
@@ -101,7 +97,7 @@
     		<result name="phone_validate_code_wrong" type="redirect">/html/phone_activation.html?code=${code}&amp;telephone=${telephone}</result>
     		<result name="mail_send_success" type="redirect">/html/mail_send_success.html?code=${code}&amp;email=${email}&amp;email_host=${email_host}</result>
     		<result name="bindingEmailSuccess" type="redirect">/html/setting.html?code=${code}</result>
-    		<result name="forget_pass_success" type="redirect">/html/setting_pass.html</result>
+    		<result name="forget_pass_success" type="redirect">/html/setting_pass.html?username=${username}</result>
     		<result name="forget_pass_valdatecode_error" type="redirect">/html/forget_pass.html?code=${code}&amp;telephone=${telephone}</result>
     		<result name="forget_pass_telephone_error" type="redirect">html/forget_pass.html?code=${code}</result>
     		<result name="forget_pass_username_error" type="redirect">/html/forget_pass.html?code=${code}</result>

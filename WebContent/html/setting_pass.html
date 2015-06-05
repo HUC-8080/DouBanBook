@@ -8,7 +8,7 @@
 <script src="/DouBanBook/js/jquery.min.js"></script>
 <script src="/DouBanBook/js/common.js"></script>
 <script src="/DouBanBook/js/login.js"></script>
-<script src="/DouBanBook/js/forget_pass.js"></script>
+<script src="/DouBanBook/js/setting_pass.js"></script>
 <title>忘记密码</title>
 </head>
 
@@ -48,14 +48,13 @@
                 <h2>忘记密码</h2>
                 <form method="post" action="http://localhost/DouBanBook/user?op=setting_pass">
                 	<table>
-                        <tr><td class="form_label"><span>用户名：</span></td><td><input type="text" id="username" name="username" /></td></tr>
+                        <tr><td class="form_label"><span>用户名：</span></td><td><input type="text" id="username" name="username" readonly="readonly" /></td></tr>
                         <tr><td class="form_label"><span>新密码：</span></td><td><input type="password" id="password" name="password" /></td></tr>
                         <tr><td class="form_label"><span>确认密码：</span></td><td><input type="password" id="repassword" name="repassword" /></td></tr>
                     </table>
                     <input type="submit" value="提交"/>
                     <input type="reset" value="重置"/>
                 </form>
-                <script src="/DouBanBook/js/phone.js"></script>
             </div>
         </div>
     </div>

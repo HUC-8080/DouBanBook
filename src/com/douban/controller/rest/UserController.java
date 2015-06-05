@@ -72,10 +72,6 @@ public class UserController extends ActionSupport implements
 	//提示代码
 	private int code;
 	
-	//好友部分
-	private String friendid;
-	private String friendids;
-	
 	private UserResult result;
 	private User user;
 	private AdminLog adminLog;
@@ -345,34 +341,6 @@ public class UserController extends ActionSupport implements
 	}
 
 	/**
-	 * @return the friendid
-	 */
-	public String getFriendid() {
-		return friendid;
-	}
-
-	/**
-	 * @param friendid the friendid to set
-	 */
-	public void setFriendid(String friendid) {
-		this.friendid = friendid;
-	}
-
-	/**
-	 * @return the friendids
-	 */
-	public String getFriendids() {
-		return friendids;
-	}
-
-	/**
-	 * @param friendids the friendids to set
-	 */
-	public void setFriendids(String friendids) {
-		this.friendids = friendids;
-	}
-
-	/**
 	 * @return the code
 	 */
 	public int getCode() {
@@ -530,11 +498,6 @@ public class UserController extends ActionSupport implements
 			this.user = this.userBiz.queryUserInfo(this.session.getUserid());
 			this.user.setPassword("");
 			result = new UserResult("获取用户信息成功", 1014, user, null);
-		//-----------------------获取用户好友列表-------------------------
-		}else if(op.equals("friendsList")){
-			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
-			this.user = this.userBiz.queryUserInfo(this.session.getUserid());
-			this.result = new UserResult("获取用户列表", 1015, this.user, null);
 		//-----------------------用户退出-------------------------
 		}else if(op.equals("logout")){
 			Cookie cookie = CookieUtil.deleteCookie(ServletActionContext.getRequest());

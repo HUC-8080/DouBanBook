@@ -5,9 +5,9 @@
 <link rel="shortcut icon" href="/DouBanBook/images/favicon.ico" />
 <link rel="stylesheet" href="/DouBanBook/css/index.css" />
 <link rel="stylesheet" href="/DouBanBook/css/book.css" />
+<link rel="stylesheet" href="/DouBanBook/css/modify_pass.css" />
+<link rel="stylesheet" href="/DouBanBook/css/tcal.css" />
 <link rel="stylesheet" href="/DouBanBook/css/center.css"/>
-<link rel="stylesheet" href="/DouBanBook/css/table.css"/>
-<link rel="stylesheet" href="/DouBanBook/css/modify_pass.css"/>
 <script src="/DouBanBook/js/jquery.min.js"></script>
 <script src="/DouBanBook/js/login.js"></script>
 <script src="/DouBanBook/js/common.js"></script>
@@ -49,7 +49,6 @@
         		<ul class="user-nav">
         			<li><a href="http://localhost/DouBanBook/html/mycollect.html">我的收藏</a></li>
         			<li><a href="http://localhost/DouBanBook/html/mycommunity.html">我的圈子</a></li>
-        			<li><a href="http://localhost/DouBanBook/html/myfriend.html">我的好友</a></li>
         			<li><a href="http://localhost/DouBanBook/html/userinfo.html">个人信息</a></li>
         			<li><a href="http://localhost/DouBanBook/html/setting.html">安全设置</a></li>
         			<li class="current"><a href="http://localhost/DouBanBook/html/modify_pass.html">密码修改</a></li>
@@ -58,7 +57,7 @@
         	</div>
  			<div class="modify-pass">
             	<h2>修改密码</h2>
-                <form id="modify_pass" action="http://localhost/DouBanBook/user?op=modify_pass" method="post" onsubmit="return checkModifyPass();">
+                <form action="http://localhost/DouBanBook/user?op=modify_pass" method="post" onsubmit="return checkModifyPass();">
                 	<table>
                         <tr><td class="form_label"><span>用户名：</span></td><td><input type="text" name="username" readonly="readonly" /></td></tr>
                         <tr><td class="form_label"><span>旧密码：</span></td><td><input type="password" name="repassword" /></td></tr>

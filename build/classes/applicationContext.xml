@@ -112,14 +112,6 @@
 			<ref bean="transactionManager"/>
 		</property>
 	</bean>
-	<bean id="friendDao" class="com.douban.model.dao.impl.FriendDaoImpl">
-		<property name="hibernateTemplate">
-			<ref bean="hibernateTemplate"/>
-		</property>
-		<property name="transactionManager">
-			<ref bean="transactionManager"/>
-		</property>
-	</bean>
 	<bean id="bindingDao" class="com.douban.model.dao.impl.BindingDaoImpl">
 		<property name="hibernateTemplate">
 			<ref bean="hibernateTemplate"/>
@@ -212,11 +204,6 @@
 			<ref bean="adminDao"/>
 		</property>
 	</bean>
-	<bean id="friendBiz" class="com.douban.model.biz.impl.FriendBizImpl">
-		<property name="friendDao">
-			<ref bean="friendDao"/>
-		</property>
-	</bean>
 	<bean id="bindingBiz" class="com.douban.model.biz.impl.BindingBizImpl">
 		<property name="bindingDao">
 			<ref bean="bindingDao"/>
@@ -298,11 +285,6 @@
 		</property>
 		<property name="adminLogBiz">
 			<ref bean="adminLogBiz"/>
-		</property>
-	</bean>
-	<bean id="friendController" class="com.douban.controller.rest.FriendController">
-		<property name="friendBiz">
-			<ref bean="friendBiz"/>
 		</property>
 	</bean>
 	<bean id="bindingController" class="com.douban.controller.rest.BindingController">

@@ -39,6 +39,7 @@ public class ArticleController extends ActionSupport implements
 	
 	private String op;
 	private long articleid;
+	private long communityid;
 	
 
 	/**
@@ -101,6 +102,20 @@ public class ArticleController extends ActionSupport implements
 		this.articleid = articleid;
 	}
 
+	/**
+	 * @return the communityid
+	 */
+	public long getCommunityid() {
+		return communityid;
+	}
+
+	/**
+	 * @param communityid the communityid to set
+	 */
+	public void setCommunityid(long communityid) {
+		this.communityid = communityid;
+	}
+
 	public HttpHeaders index(){
 		//-------------------------查询文章列表----------------------------
 		if(this.op.equals("articleList")){
@@ -109,6 +124,14 @@ public class ArticleController extends ActionSupport implements
 				this.result = new ArticleResult("查询文章列表成功", 8080, null, this.articles);	
 			}else{
 				this.result = new ArticleResult("尚无任何文章", 8090, null, null);
+			}
+		//--------------------------查询此圈子下有哪些文章-----------------
+		}else if(op.equals("articleListByCommunityId")){
+			this.articles = this.articleBiz.findByCommunityId(communityid);
+			if(this.articles == null){
+				this.result = new ArticleResult("此圈子下尚无文章", 8082, null, null);
+			}else{
+				this.result = new ArticleResult("获取此圈子下文章列表成功", 8081, null, this.articles);
 			}
 		//-------------------------屏蔽文章--------------------------------
 		}else if(op.equals("shield")){

@@ -18,7 +18,7 @@ if(search != null){
  */
 function searchBooks(){
 	var search = $("#inp-query").val();
-	location.href = "http://localhost/DouBanBook/html/book_list.html?q="+search;
+	location.href = "/DouBanBook/html/book_list.html?q="+search;
 }
 
 /**
@@ -27,7 +27,7 @@ function searchBooks(){
 function getLabels(){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost/DouBanBook/label.json",
+		url:"/DouBanBook/label.json",
 		dataType:"json",
 		success:function(data){
 			var content = "";
@@ -52,7 +52,7 @@ function getRightLabels(){
 	if($(".hot-tags-col5").length != 0){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/label.json",
+			url:"/DouBanBook/label.json",
 			dataType:"json",
 			success:function(data){
 				var content = "";
@@ -76,7 +76,7 @@ function getRightLabels(){
 function rank_list(){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost/DouBanBook/collect.json?op=rank_list",
+		url:"/DouBanBook/collect.json?op=rank_list",
 		dataType:"json",
 		success:function(data){
 			
@@ -86,7 +86,7 @@ function rank_list(){
 function getUserName(){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost/DouBanBook/user.json?op=isLogin",
+		url:"/DouBanBook/user.json?op=isLogin",
 		dataType:"json",
 		success:function(data){
 			if(data['code'] == 1000){

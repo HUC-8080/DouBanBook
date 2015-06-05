@@ -11,11 +11,13 @@ for(var i=0;i<searchArr.length;i++){
 function selectArticle(communityid){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost/DouBanBook/community.json?op=selectArticle",
+		url:"http://localhost/DouBanBook/article.json?op=articleListByCommunityId",
 		data:"communityid="+communityid,
 		dataType:"json",
 		success:function(data){
-			
+			if(data['code'] == 8081){
+				
+			}
 		}
 	});
 }

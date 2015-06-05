@@ -10,7 +10,7 @@
 	function selectLiterature(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=文学&start=0&count=10",
+			url:"/DouBanBook/books/search.json?tag=文学&start=0&count=10",
 			dataType:"json",
 			success:function(data){
 				content = "";
@@ -24,7 +24,7 @@
 	function selectPopular(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=流行&start=0&count=10",
+			url:"/DouBanBook/books/search.json?tag=流行&start=0&count=10",
 			dataType:"json",
 			success:function(data){
 				content = "";
@@ -38,7 +38,7 @@
 	function selectCulture(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=文化&start=0&count=10",
+			url:"/DouBanBook/books/search.json?tag=文化&start=0&count=10",
 			dataType:"json",
 			success:function(data){
 				content = "";
@@ -52,7 +52,7 @@
 	function selectLife(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=生活&start=0&count=10",
+			url:"/DouBanBook/books/search.json?tag=生活&start=0&count=10",
 			dataType:"json",
 			success:function(data){
 				content = "";
@@ -66,7 +66,7 @@
 	function selectEconomy(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=经管&start=0&count=10",
+			url:"/DouBanBook/books/search.json?tag=经管&start=0&count=10",
 			dataType:"json",
 			success:function(data){
 				content = "";
@@ -80,7 +80,7 @@
 	function selectScience(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=科技&start=0&count=10",
+			url:"/DouBanBook/books/search.json?tag=科技&start=0&count=10",
 			dataType:"json",
 			success:function(data){
 				content = "";
@@ -94,7 +94,7 @@
 	function selectEbook(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/DouBanBook/books/search.json?tag=电子图书&start=0&count=9",
+			url:"/DouBanBook/books/search.json?tag=电子图书&start=0&count=9",
 			dataType:"json",
 			success:function(data){
 				content = "";

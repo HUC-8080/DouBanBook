@@ -37,7 +37,6 @@
         <mapping resource="com/douban/model/entity/po/Review.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/Advert.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/Admin.hbm.xml"/>
-        <mapping resource="com/douban/model/entity/po/Friend.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/Binding.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/Session.hbm.xml"/>
         <mapping resource="com/douban/model/entity/po/Article.hbm.xml"/>
