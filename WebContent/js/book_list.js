@@ -29,7 +29,6 @@ var start = (pageNum - 1) * 10;
 selectBookList(search);
 
 function selectBookList(search){
-	alert(search);
 	$.ajax({
 		type:"GET",
 		url:"http://localhost/DouBanBook/books/search.json",

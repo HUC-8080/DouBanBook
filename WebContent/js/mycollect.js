@@ -33,7 +33,7 @@ function getCollectBook(bookids,collectids){
 			var collects = collectids.split(",");
 			var content = "<tr><th width='45'>选择</th><th width='120'>书名</th><th width='*'>作者</th><th width='100'>出版时间</th><th width='100'>操作</th></tr>";
 			for(var i=0;i<data['books'].length;i++){
-				content += "<tr><td><input type='checkbox' name='id' value='"+collects[i]+"' /></td><td>"+data['books'][i]['title']+"</td><td>"+data['books'][i]['author']+"</td><td>"+data['books'][i]['pubdate']+"</td><td><a class='button border-yellow button-little' href='#' onclick='javascript:cancelCollect("+data['books'][i]['id']+")'>删除</a></td></tr>";
+				content += "<tr><td><input type='checkbox' name='id' value='"+collects[i]+"' /></td><td><a href='/DouBanBook/html/book.html?id="+data['books'][i]['id']+"'>"+data['books'][i]['title']+"</a></td><td>"+data['books'][i]['author']+"</td><td>"+data['books'][i]['pubdate']+"</td><td><a class='button border-yellow button-little' href='#' onclick='javascript:cancelCollect("+data['books'][i]['id']+")'>删除</a></td></tr>";
 			}
 			$("#collects").html(content);
 		}

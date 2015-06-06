@@ -249,9 +249,13 @@ public class CommunityController extends ActionSupport implements
 			this.communityUser = new CommunityUser();
 			this.communityUser.setCommunityid(communityid);
 			this.session = CookieUtil.getCookie(ServletActionContext.getRequest());
-			this.communityUser.setUserid(this.session.getUserid());
-			if(this.communityUserBiz.userIsJoinedThisCommunity(communityUser)){
-				this.result = new CommunityResult("用户已经加入这个圈子", 8002, null, null);
+			if(this.session != null){
+				this.communityUser.setUserid(this.session.getUserid());
+				if(this.communityUserBiz.userIsJoinedThisCommunity(communityUser)){
+					this.result = new CommunityResult("用户已经加入这个圈子", 8002, null, null);
+				}else{
+					this.result = new CommunityResult("用户尚未加入这个圈子", 8003, null, null);
+				}
 			}else{
 				this.result = new CommunityResult("用户尚未加入这个圈子", 8003, null, null);
 			}
@@ -298,6 +302,9 @@ public class CommunityController extends ActionSupport implements
 			this.adminLogBiz.addLog(adminLog);
 			
 			this.result = new CommunityResult("删除圈子成功", 8009, null, null);
+		}else if(op.equals("queryCommunityName")){
+			this.community = this.communityBiz.findById(communityid);
+			this.result = new CommunityResult("查询圈子名成功", 8061, this.community, null);
 		}
 		return new DefaultHttpHeaders();
 	}

@@ -117,5 +117,16 @@ function quitCommunity(communityId){
 	});
 }
 function createcommunity(){
-	location.href = "http://localhost/DouBanBook/html/create_community.html";
+	$.ajax({
+		type:"GET",
+		url:"/DouBanBook/user.json?op=isLogin",
+		dataType:"json",
+		success:function(data){
+			if(data['code'] == 1000){
+				location.href = "http://localhost/DouBanBook/html/create_community.html";
+			}else{
+				alert("您还未登陆！！请先登录！！");
+			}
+		}
+	});
 }

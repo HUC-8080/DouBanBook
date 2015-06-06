@@ -128,7 +128,7 @@ public class ArticleController extends ActionSupport implements
 		//--------------------------查询此圈子下有哪些文章-----------------
 		}else if(op.equals("articleListByCommunityId")){
 			this.articles = this.articleBiz.findByCommunityId(communityid);
-			if(this.articles == null){
+			if(this.articles == null || this.articles.size() == 0){
 				this.result = new ArticleResult("此圈子下尚无文章", 8082, null, null);
 			}else{
 				this.result = new ArticleResult("获取此圈子下文章列表成功", 8081, null, this.articles);
