@@ -9,14 +9,20 @@
  */
 package com.douban.controller.rest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
+import com.douban.common.util.CookieUtil;
 import com.douban.model.biz.impl.ArticleBizImpl;
+import com.douban.model.biz.impl.CommunityBizImpl;
+import com.douban.model.biz.impl.UserBizImpl;
 import com.douban.model.entity.po.Article;
 import com.douban.model.entity.result.ArticleResult;
 import com.opensymphony.xwork2.ActionSupport;
@@ -36,10 +42,14 @@ public class ArticleController extends ActionSupport implements
 	private Article article;
 	
 	private ArticleBizImpl articleBiz;
+	private CommunityBizImpl communityBiz;
+	private UserBizImpl userBiz;
 	
 	private String op;
 	private long articleid;
 	private long communityid;
+	private String content;
+	private String name;
 	
 
 	/**
@@ -65,6 +75,20 @@ public class ArticleController extends ActionSupport implements
 		this.articleBiz = articleBiz;
 	}
 
+	/**
+	 * @param communityBiz the communityBiz to set
+	 */
+	public void setCommunityBiz(CommunityBizImpl communityBiz) {
+		this.communityBiz = communityBiz;
+	}
+
+	/**
+	 * @param userBiz the userBiz to set
+	 */
+	public void setUserBiz(UserBizImpl userBiz) {
+		this.userBiz = userBiz;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.opensymphony.xwork2.ModelDriven#getModel()
 	 */
@@ -88,6 +112,34 @@ public class ArticleController extends ActionSupport implements
 		this.op = op;
 	}
 	
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	/**
 	 * @return the articleid
 	 */
@@ -150,6 +202,30 @@ public class ArticleController extends ActionSupport implements
 			this.article.setShield(false);
 			this.articleBiz.shield(article);
 			this.result = new ArticleResult("解除屏蔽此文件", 8063, null, null);
+		}else if(op.equals("selectArticleContent")){
+			this.article = this.articleBiz.findById(articleid);
+			if(this.article != null){
+				this.result = new ArticleResult("查询文章内容成功", 8084, this.article, null);
+			}else{
+				this.result = new ArticleResult("不存在此文章", 8085, null, null);	
+			}
+		}
+		return new DefaultHttpHeaders();
+	}
+	
+	public HttpHeaders create(){
+		if(op.equals("writearticle")){
+			this.article = new Article();
+			this.article.setCommunity(this.communityBiz.findById(communityid));
+			this.article.setUser(this.userBiz.queryUserInfo(CookieUtil.getCookie(ServletActionContext.getRequest()).getUserid()));
+			Date date = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			this.article.setDate(format.format(date));
+			this.article.setContent(content);
+			this.article.setName(name);
+			if(this.articleBiz.writeArticle(article)){
+				return new DefaultHttpHeaders("writearticlesuccess");
+			}
 		}
 		return new DefaultHttpHeaders();
 	}

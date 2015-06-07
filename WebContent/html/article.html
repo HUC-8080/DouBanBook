@@ -45,64 +45,32 @@
         </div>
         <div class="content">
         	<div class="article">
-                <h1 id="title"></h1>
+                <h2><b>文章名:<span id="articleName"></span></b></h2>
                 <div class="subjectwrap clearfix">
-                	<div class="mainpic" id="bookpic">
-                    </div>
-                    <div class="bookinfo">
-                    	<span><span class="pl">作者:</span><span id="author"></span></span>
-                        <br/>
-                        <span><span class="pl">出版社:</span><span id="pub"></span></span>
-                        <br/>
-                        <span><span class="pl">出版年:</span><span id="pubdate"></span></span>
-                        <br/>
-                        <span><span class="pl">页数:</span><span id="pages"></span></span>
-                        <br/>
-                        <span><span class="pl">定价:</span><span id="price"></span></span>
-                        <br/>
-                        <span><span class="pl">装帧:</span><span id="binding"></span></span>
-                        <br/>
-                        <span><span class="pl">ISBN:</span><span id="isbn"></span></span>
-                        <br/>
-                    </div>
-                    <div class="collection">
-                    	<a href="javascript:void()" id="collect" onclick="javascript:collect();">收藏</a>
-                    	<a href="javascript:void()" id="collected" onclick="javascript:cancelcollect();">取消收藏</a>
-                    </div>
-                    <div class="related-info">
-                    	<h2>
-                        	<span>内容简介</span>
-                        </h2>
-                        <div class="intro" id="summary">
-                        </div>
-                        <h2>
-                        	<span>作者简介</span>
-                        </h2>
-                        <div class="author" id="author_intro">
-                        </div>
-                        <h2>
-                        	<span>目录</span>
-                        </h2>
-                        <div class="author" id="catalog">
-                        </div>
-                        <h2>
-                        	<span>书评</span>
-                        </h2>
+					<div class="articleContent">
+						<ul class="article" id="content"></ul>
+					</div>
+                        
                         <div class="comment-list">
+                        <h2 style="margin-top:10px;">
+                        	<span id="selectcomment">查看评论</span>
+                        </h2>
                         	<ul id="review_list">
                             </ul>
                         </div>
-                        <div class="publish-comment">
-                        	<form action="http://localhost/DouBanBook/review?op=publishReview" method="post" onsubmit="return publishreview();">
-                        		<input type="hidden" name="bookid" id="bookid" value=""/>
-                        		<input type="hidden" name="userid" id="userid" value=""/>  
+                        <div class="publish-comment" style="margin-top:50px;">
+                        	<h3>发表评论</h3>
+                        	<form action="/DouBanBook/comment?op=publishComment" method="post">
+                        		<input type="hidden" name="articleid" id="articleid" value=""/>
                         		<textarea rows="10" cols="20" name="content" id="content"></textarea>
                         		<input type="submit" value="提交"/>
                         	</form>
                         </div>
+                        <div class="prompt-info" style="margin-top:50px;">
+                        	<span>您还未登陆，请<a href="/DouBanBook/html/login.html">[登陆]</a>或<a href="/DouBanBook/html/login.html#toregister">[注册]</a></span>
+                        </div>
                     </div>
                 </div>
-            </div>
             <div class="aside">
             	<div class="ad-placeholder">
                 	<a href="#" title="">

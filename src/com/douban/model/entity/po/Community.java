@@ -139,6 +139,7 @@ public class Community implements Serializable{
 	 */
 	public void setUser(User user) {
 		this.user = user;
+		this.user.setPassword("");
 	}
 
 	/**

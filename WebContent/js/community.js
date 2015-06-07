@@ -37,8 +37,6 @@ $(function(){
 			dataType:"json",
 			success:function(data){
 				if(data['code'] == 1000){
-					alert(data['user']['id']);
-					alert(value);
 					joinThisCommunity(data['user']['id'],value);
 				}else{
 					alert("您还未登录！！请先登录！！！");
@@ -47,7 +45,7 @@ $(function(){
 		});
 	});
 	$("#writeArticle").click(function(){
-		location.href = "/DouBanBook/html/article.html?articleid="+value;
+		location.href = "/DouBanBook/html/writeArticle.html?communityid="+value;
 	});
 });
 

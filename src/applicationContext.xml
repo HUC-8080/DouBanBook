@@ -332,5 +332,22 @@
 		<property name="articleBiz">
 			<ref bean="articleBiz"/>
 		</property>
+		<property name="communityBiz">
+			<ref bean="communityBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<bean id="comment" class="com.douban.controller.rest.CommentController">
+		<property name="commentBiz">
+			<ref bean="commentBiz"/>
+		</property>
+		<property name="articleBiz">
+			<ref bean="articleBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
 	</bean>
 </beans>

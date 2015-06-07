@@ -116,6 +116,11 @@
     	</action>
     	<action name="article" class="com.douban.controller.rest.ArticleController">
     		<result name="index"></result>
+    		<result name="writearticlesuccess" type="redirect">/html/community.html?communityid=${communityid}</result>
+    	</action>
+    	<action name="comment" class="com.douban.controller.rest.CommentController">
+    		<result name="index"></result>
+    		<result name="publishcommentsuccess" type="redirect">/html/article.html?articleid=${articleid}&amp;code=10002</result>
     	</action>
     </package>
     <!-- Add packages here -->

@@ -90,6 +90,7 @@ public class AdminLog implements Serializable {
 	 */
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
+		this.admin.setPassword("");
 	}
 
 	/**
